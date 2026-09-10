@@ -65,20 +65,24 @@ async function search() {
             <tr>
               <th scope="col">Hotel</th>
               <th scope="col">City</th>
-              <th scope="col">Country</th>
+              <th scope="col">Trip</th>
               <th scope="col">Check-in</th>
               <th scope="col">Check-out</th>
-              <th scope="col">Price / night</th>
+              <th scope="col">Nights</th>
+              <th scope="col">Nightly rate</th>
+              <th scope="col">Stay price</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="stay in stays" :key="stay.trip_id">
               <td>{{ stay.hotel_name }}</td>
-              <td>{{ stay.city }}</td>
-              <td>{{ stay.country }}</td>
+              <td>{{ stay.city }}, {{ stay.state }}</td>
+              <td>{{ stay.trip_name }}</td>
               <td>{{ stay.check_in }}</td>
               <td>{{ stay.check_out }}</td>
-              <td>${{ stay.price }}</td>
+              <td>{{ stay.nights }}</td>
+              <td>{{ stay.nightly_rate }}</td>
+              <td>{{ stay.stay_price }}</td>
             </tr>
           </tbody>
         </table>

@@ -20,7 +20,7 @@ button:disabled { cursor: wait; opacity: .7; }
 h2 { margin: 0; font-size: 1.45rem; }
 .results-heading p { margin: 0; color: #536575; }
 .table-wrap { overflow-x: auto; background: #fff; border: 1px solid #dbe3e4; border-radius: 12px; box-shadow: 0 5px 18px rgb(22 45 54 / 7%); }
-table { width: 100%; border-collapse: collapse; min-width: 710px; text-align: left; }
+table { width: 100%; border-collapse: collapse; min-width: 940px; text-align: left; }
 th, td { padding: 1rem; border-bottom: 1px solid #e4eaeb; }
 th { background: #eff7f7; font-size: .82rem; letter-spacing: .02em; }
 tbody tr:last-child td { border-bottom: 0; }

@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import csv
+from datetime import date
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
@@ -25,7 +27,8 @@ def read_csv(filename: str) -> list[dict[str, str]]:
     path = DATA_DIR / filename
     if not path.exists():
         raise HTTPException(status_code=500, detail=f"Required data file is missing: {filename}")
-    with path.open(newline="", encoding="utf-8") as data_file:
+    # The instructor CSVs use a UTF-8 BOM so they open correctly in Excel.
+    with path.open(newline="", encoding="utf-8-sig") as data_file:
         return list(csv.DictReader(data_file))
 
 
@@ -35,6 +38,11 @@ def value(row: dict[str, str], *names: str) -> str:
         if row.get(name):
             return row[name]
     return ""
+
+
+def format_money(amount: Decimal) -> str:
+    """Format a CSV currency value without floating-point rounding errors."""
+    return f"${amount:,.2f}"
 
 
 @app.get("/api/health")
@@ -58,15 +66,25 @@ def search_stays(city: str = Query(..., min_length=1, description="City to searc
         hotel_city = value(hotel, "city")
         if hotel_city.casefold() != normalized_city:
             continue
+        check_in = value(trip, "check_in", "start_date", "date_start")
+        check_out = value(trip, "check_out", "end_date", "date_end")
+        try:
+            nights = (date.fromisoformat(check_out) - date.fromisoformat(check_in)).days
+            nightly_rate = Decimal(value(hotel, "nightly_rate_usd", "nightly_rate", "price"))
+        except (InvalidOperation, ValueError):
+            raise HTTPException(status_code=500, detail="A trip has an invalid date or nightly rate.")
         stays.append(
             {
                 "trip_id": value(trip, "trip_id", "id"),
+                "trip_name": value(trip, "trip_name"),
                 "hotel_name": value(hotel, "hotel_name", "name"),
                 "city": hotel_city,
-                "country": value(hotel, "country"),
-                "check_in": value(trip, "check_in", "start_date", "date_start"),
-                "check_out": value(trip, "check_out", "end_date", "date_end"),
-                "price": value(trip, "price", "price_per_night", "nightly_rate"),
+                "state": value(hotel, "state"),
+                "check_in": check_in,
+                "check_out": check_out,
+                "nights": str(nights),
+                "nightly_rate": format_money(nightly_rate),
+                "stay_price": format_money(nightly_rate * nights),
             }
         )
     return {"city": city.strip(), "count": len(stays), "stays": stays}

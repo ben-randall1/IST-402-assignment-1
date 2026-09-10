@@ -31,11 +31,11 @@ A Vue and FastAPI travel-stay search application for IST 402 Assignment 1, Part 
    npm run dev
    ```
 
-4. Open the address printed by Vite (normally `http://localhost:5173`). Search for `Boston`, `Miami`, or `Seattle`.
+4. Open the address printed by Vite (normally `http://localhost:5173`). Search for `Boston`, `New York`, or `Philadelphia`.
 
 ## Data
 
-The API reads `data/hotels.csv` and `data/trips.csv` on every request and joins each trip to its hotel using `hotel_id`. The included files are small demo data so the project runs immediately. Replace them with the instructor-provided `hotels.csv` and `trips.csv` before submission if different data is required; retain their file names and the `hotel_id` column.
+The API reads the instructor-provided `data/hotels.csv` and `data/trips.csv` on every request and joins each trip to its hotel using `hotel_id`. `users.csv` and `bookings.csv` are included for the future Part 2 database work. Preserve the supplied names and ID columns.
 
 ## Project context
 
