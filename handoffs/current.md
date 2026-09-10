@@ -12,4 +12,4 @@ The instructor-data backend check confirms Boston returns `T001`, `T002`, `T009`
 
 ## Limitations and next task
 
-Part 1 uses the instructor CSV pack and a local development API URL. Next task: connect the repository to GitHub, push the Part 1 checkpoint, add instructor-accessible screenshots, then implement Part 2 requirements when assigned.
+Part 1 uses the instructor CSV pack and a local development API URL. The private GitHub repository is `ben-randall1/IST-402-assignment-1`. Next task: add instructor-accessible screenshots and grant the instructor access before submitting, then implement Part 2 requirements when assigned.
