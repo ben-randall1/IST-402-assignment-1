@@ -2,7 +2,7 @@
 
 ## Repository and commit
 
-GitHub repository URL: not configured yet. Exact submitted commit: pending final review and commit.
+GitHub repository URL: not configured yet. Exact Part 1 implementation commit: `eeb2410dd1176dbd1bee262d6b89001f4826670e` (`feat: add Part 1 hotel stay search`).
 
 ## Implementation
 

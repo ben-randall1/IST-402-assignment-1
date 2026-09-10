@@ -4,6 +4,8 @@
 
 StayScout has a Vue city-search form and a FastAPI endpoint that joins `data/hotels.csv` and `data/trips.csv` through `hotel_id`. Matching stays appear in a labeled HTML table, and zero matches produce a clear message.
 
+The reviewed Part 1 implementation checkpoint is `eeb2410dd1176dbd1bee262d6b89001f4826670e`.
+
 ## Checked
 
 `npm run build` completed successfully. In the browser, searching Boston displayed three rows and all six table labels; searching Orlando displayed the no-results message and no table rows. The included data also provides positive searches for Miami and Seattle.
