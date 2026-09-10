@@ -4,7 +4,7 @@
 
 StayScout has a Vue city-search form and a FastAPI endpoint that joins the instructor-supplied `data/hotels.csv` and `data/trips.csv` through `hotel_id`. Matching stays appear in a labeled HTML table with derived nights and price, and zero matches produce a clear message.
 
-The original reviewed checkpoint was `eeb2410dd1176dbd1bee262d6b89001f4826670e`; an updated Part 1 checkpoint with the instructor data is being recorded next.
+The submitted Part 1 implementation checkpoint with the instructor data is `8ac03e41e47ddf32e560bcaf664229a7944a656b`.
 
 ## Checked
 

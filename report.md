@@ -2,7 +2,7 @@
 
 ## Repository and commit
 
-GitHub repository URL: not configured yet. Exact Part 1 implementation commit: pending the instructor-data checkpoint.
+GitHub repository URL: not configured yet. Exact Part 1 implementation commit: `8ac03e41e47ddf32e560bcaf664229a7944a656b` (`feat: use instructor travel data for Part 1`).
 
 ## Implementation
 
