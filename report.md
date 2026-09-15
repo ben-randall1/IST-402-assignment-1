@@ -2,7 +2,7 @@
 
 ## Repository and commit
 
-GitHub repository: [ben-randall1/IST-402-assignment-1](https://github.com/ben-randall1/IST-402-assignment-1). Part 1 implementation checkpoint: `8ac03e41e47ddf32e560bcaf664229a7944a656b`. Exact Part 2 final commit: pending feature-branch merge and combined-app verification.
+GitHub repository: [ben-randall1/IST-402-assignment-1](https://github.com/ben-randall1/IST-402-assignment-1). Part 1 implementation checkpoint: `8ac03e41e47ddf32e560bcaf664229a7944a656b`. Exact Part 2 merged implementation commit: `d510b702b896a20e8ac92bd41c7dee26cac75743` (`merge: add Part 2 SQLite CRUD`).
 
 ## Implementation
 
