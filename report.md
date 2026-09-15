@@ -26,4 +26,4 @@ I manually reviewed the Vue, FastAPI, SQLite schema, and project documentation i
 
 Project documentation: [README](README.md), [AGENTS.md](AGENTS.md), [design note](docs/design-note.md), [selected prompts](prompts/selected-prompts.md), and [current handoff](handoffs/current.md).
 
-Remaining limitation: the repository is private and screenshots still need instructor-accessible links before submission. Next task: merge and push the reviewed Part 2 work, then upload this updated `report.md` to the Part 2 submission page.
+Remaining limitation: the repository is private and screenshots still need instructor-accessible links before submission. Next task: grant the instructor repository access, add screenshot links, and upload this updated `report.md` to the Part 2 submission page.

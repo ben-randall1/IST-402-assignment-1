@@ -10,4 +10,4 @@ SQLite 3.42.0 was present in the project Python environment and passed a create/
 
 ## Limitations and next task
 
-The private GitHub repository is `ben-randall1/IST-402-assignment-1`. The local SQLite database is intentionally untracked, so each new clone seeds its own first-run database. The reviewed Part 2 merge checkpoint is `d510b702b896a20e8ac92bd41c7dee26cac75743`. Next task: push main, add instructor-accessible screenshots, and upload `report.md` for Part 2.
+The private GitHub repository is `ben-randall1/IST-402-assignment-1`; the merged Part 2 work is pushed to `main`. The local SQLite database is intentionally untracked, so each new clone seeds its own first-run database. The reviewed Part 2 merge checkpoint is `d510b702b896a20e8ac92bd41c7dee26cac75743`. Next task: add instructor-accessible screenshots, grant the instructor repository access, and upload `report.md` for Part 2.
