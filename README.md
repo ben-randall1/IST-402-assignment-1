@@ -1,6 +1,6 @@
 # StayScout
 
-A Vue and FastAPI travel-stay search application for IST 402 Assignment 1, Part 1.
+A Vue, FastAPI, and SQLite travel-stay application for IST 402 Assignment 1, Part 2.
 
 ## Requirements
 
@@ -31,11 +31,19 @@ A Vue and FastAPI travel-stay search application for IST 402 Assignment 1, Part 
    npm run dev
    ```
 
-4. Open the address printed by Vite (normally `http://localhost:5173`). Search for `Boston`, `New York`, or `Philadelphia`.
+4. Open the address printed by Vite (normally `http://localhost:5173`). Search for a hotel name such as `Harbor`, select a demo traveler, then create and manage simulated bookings.
 
 ## Data
 
-The API reads the instructor-provided `data/hotels.csv` and `data/trips.csv` on every request and joins each trip to its hotel using `hotel_id`. `users.csv` and `bookings.csv` are included for the future Part 2 database work. Preserve the supplied names and ID columns.
+On the first API startup, the backend seeds `data/stayscout.db` from the instructor-provided `hotels.csv`, `trips.csv`, `users.csv`, and `bookings.csv` files. After that, every search and booking action reads from or writes to SQLite; CSVs are not re-imported, so bookings survive browser and API restarts. The SQLite database is intentionally ignored by Git because it is local runtime data.
+
+## Part 2 features
+
+- Search available stays by hotel name.
+- Select a demo traveler and create a confirmed simulated booking.
+- Read that traveler's booking history.
+- Cancel a booking without removing its history record.
+- Delete a test booking.
 
 ## Project context
 
