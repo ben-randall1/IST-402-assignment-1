@@ -2,14 +2,12 @@
 
 ## What works
 
-StayScout has a Vue city-search form and a FastAPI endpoint that joins the instructor-supplied `data/hotels.csv` and `data/trips.csv` through `hotel_id`. Matching stays appear in a labeled HTML table with derived nights and price, and zero matches produce a clear message.
-
-The submitted Part 1 implementation checkpoint with the instructor data is `8ac03e41e47ddf32e560bcaf664229a7944a656b`.
+StayScout now uses SQLite for hotel searches and all booking CRUD actions. The database seeds once from the four instructor CSVs, then preserves created, cancelled, and deleted bookings across browser and API restarts. The frontend supports hotel-name search, traveler selection, create booking, history, cancel, and delete.
 
 ## Checked
 
-The instructor-data backend check confirms Boston returns `T001`, `T002`, `T009`, and `T010` (four rows) and Miami returns zero rows. `npm run build` completed successfully. In the browser, Boston showed all four rows with calculated prices, and Miami showed the no-results message with no table.
+SQLite 3.42.0 was present in the project Python environment and passed a create/close/reopen persistence check. Browser verification searched Harbor successfully, created a booking for Demo Traveler 6, read it in history, cancelled it while retaining it, refreshed the browser, restarted the backend, verified it still existed as cancelled, and deleted the test booking. A no-results search for `Not A Hotel` showed a clear message. `npm run build` passed.
 
 ## Limitations and next task
 
-Part 1 uses the instructor CSV pack and a local development API URL. The private GitHub repository is `ben-randall1/IST-402-assignment-1`, and the local `origin` remote is configured. Next task: authenticate Git and push `main`, then add instructor-accessible screenshots and grant the instructor access before submitting. Implement Part 2 requirements when assigned.
+The private GitHub repository is `ben-randall1/IST-402-assignment-1`. The local SQLite database is intentionally untracked, so each new clone seeds its own first-run database. Next task: commit this feature branch, merge it into main, verify the combined app, push it, add instructor-accessible screenshots, and upload `report.md` for Part 2.

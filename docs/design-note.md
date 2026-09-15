@@ -1,5 +1,5 @@
-# Part 1 design note
+# Part 2 design note
 
-The Vue single-page frontend owns the search form, request state, user-facing message, and plain HTML results table. It requests `GET /api/stays?city=...` from FastAPI.
+The Vue single-page frontend owns the hotel-name search form, demo traveler selection, booking controls, messages, and plain HTML tables for stays and booking history. It sends all search and CRUD requests to FastAPI.
 
-FastAPI validates the city, reads the two CSV files, and returns search-ready records. The backend data logic indexes hotels by `hotel_id`, joins each trip to its hotel, filters by city without regard to letter case, and derives nights and stay price from the date range and the hotel's nightly rate. No database or external service is used in Part 1.
+FastAPI initializes a local SQLite database once from the four supplied CSV files. After seeding, the backend handles all searches and booking create, read, update, and delete actions through SQLite. It joins hotels, trips, users, and bookings for display, derives nights and stay price, and preserves new records and changes across restarts.

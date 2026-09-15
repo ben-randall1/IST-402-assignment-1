@@ -1,7 +1,7 @@
 :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1c2a39; background: #f7f6f2; }
 * { box-sizing: border-box; }
 body { margin: 0; }
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 .page-shell { width: min(100% - 2rem, 980px); margin: 0 auto; padding: 4.5rem 0; }
 .hero { border-radius: 20px; padding: clamp(2rem, 7vw, 5rem); color: #fff; background: linear-gradient(120deg, #103b4a, #176a77); box-shadow: 0 16px 45px rgb(16 59 74 / 18%); }
 .eyebrow { margin: 0 0 .65rem; color: #cdebef; font-size: .78rem; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
@@ -11,11 +11,16 @@ h1 { max-width: 640px; margin: 0; font-family: Georgia, serif; font-size: clamp(
 label { display: block; margin: 0 0 .45rem; font-size: .85rem; font-weight: 700; }
 .search-row { display: flex; gap: .7rem; }
 input { width: 100%; min-width: 0; padding: .77rem .85rem; border: 1px solid #adc5ca; border-radius: 8px; color: #1c2a39; }
-input:focus { outline: 3px solid #7ad6da; outline-offset: 1px; }
+input:focus, select:focus { outline: 3px solid #7ad6da; outline-offset: 1px; }
 button { padding: .77rem 1.1rem; border: 0; border-radius: 8px; background: #e46e46; color: white; cursor: pointer; font-weight: 750; }
 button:hover { background: #c85131; }
 button:disabled { cursor: wait; opacity: .7; }
 .results { margin-top: 3rem; }
+.booking-panel { display: grid; grid-template-columns: 1fr minmax(230px, .8fr); gap: 1rem 2rem; align-items: end; margin-top: 2rem; padding: 1.4rem; border: 1px solid #dbe3e4; border-radius: 12px; background: #fff; }
+.section-kicker { margin: 0 0 .35rem; color: #176a77; font-size: .78rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+.traveler-control label { margin-bottom: .4rem; }
+select { width: 100%; padding: .77rem .85rem; border: 1px solid #adc5ca; border-radius: 8px; background: #fff; color: #1c2a39; }
+.panel-message { grid-column: 1 / -1; margin: 0; color: #536575; }
 .results-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .9rem; }
 h2 { margin: 0; font-size: 1.45rem; }
 .results-heading p { margin: 0; color: #536575; }
@@ -24,4 +29,16 @@ table { width: 100%; border-collapse: collapse; min-width: 940px; text-align: le
 th, td { padding: 1rem; border-bottom: 1px solid #e4eaeb; }
 th { background: #eff7f7; font-size: .82rem; letter-spacing: .02em; }
 tbody tr:last-child td { border-bottom: 0; }
-@media (max-width: 620px) { .page-shell { padding: 1rem 0 3rem; } .hero { border-radius: 0 0 20px 20px; } .search-row { flex-direction: column; } .results-heading { display: block; } .results-heading p { margin-top: .45rem; } }
+.small-button { padding: .55rem .7rem; font-size: .82rem; white-space: nowrap; }
+.history { margin-top: 3rem; }
+.history-message { margin: 0 0 .9rem; color: #536575; }
+.secondary-button, .delete-button { padding: .48rem .65rem; font-size: .8rem; white-space: nowrap; }
+.secondary-button { border: 1px solid #176a77; background: #fff; color: #176a77; }
+.secondary-button:hover { background: #e7f2f3; }
+.delete-button { margin-left: .45rem; background: #9d3c36; }
+.delete-button:hover { background: #7e2d28; }
+.action-cell { min-width: 156px; }
+.status { display: inline-block; padding: .2rem .5rem; border-radius: 100px; font-size: .77rem; font-weight: 750; text-transform: capitalize; }
+.status.confirmed { color: #135d47; background: #dff5ea; }
+.status.cancelled { color: #813630; background: #fde6e3; }
+@media (max-width: 620px) { .page-shell { padding: 1rem 0 3rem; } .hero { border-radius: 0 0 20px 20px; } .search-row { flex-direction: column; } .booking-panel { grid-template-columns: 1fr; } .results-heading { display: block; } .results-heading p { margin-top: .45rem; } .results-heading .secondary-button { margin-top: .7rem; } }
