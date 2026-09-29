@@ -1,0 +1,56 @@
+
+> stayscout-frontend@1.0.0 test
+> node --test src/composables/*.test.js
+
+TAP version 13
+# Subtest: invalid ZIP never reaches the provider and clears an old selection
+ok 1 - invalid ZIP never reaches the provider and clears an old selection
+  ---
+  duration_ms: 1.179583
+  type: 'test'
+  ...
+# Subtest: a successful leading-zero search retains the ZIP and shared selected hotel
+ok 2 - a successful leading-zero search retains the ZIP and shared selected hotel
+  ---
+  duration_ms: 0.494875
+  type: 'test'
+  ...
+# Subtest: successful empty result retains its verified center
+ok 3 - successful empty result retains its verified center
+  ---
+  duration_ms: 0.100208
+  type: 'test'
+  ...
+# Subtest: unresolved ZIP, invalid input, rate limit and provider failures have distinct states
+ok 4 - unresolved ZIP, invalid input, rate limit and provider failures have distinct states
+  ---
+  duration_ms: 0.256542
+  type: 'test'
+  ...
+# Subtest: network and malformed response failures cannot look like empty results
+ok 5 - network and malformed response failures cannot look like empty results
+  ---
+  duration_ms: 0.221583
+  type: 'test'
+  ...
+# Subtest: loading appears before response and a stale request cannot replace the newer search
+ok 6 - loading appears before response and a stale request cannot replace the newer search
+  ---
+  duration_ms: 0.132709
+  type: 'test'
+  ...
+# Subtest: cancelled component cannot be updated by a late request
+ok 7 - cancelled component cannot be updated by a late request
+  ---
+  duration_ms: 0.187167
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 93.184667

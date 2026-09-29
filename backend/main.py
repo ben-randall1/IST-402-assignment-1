@@ -13,6 +13,9 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from .config import geoapify_api_key
+from .geoapify import GeoapifyRequestError, GeoapifyRateLimitError, MissingGeoapifyKeyError, ZipNotFoundError, lookup_us_zip, search_hotels
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
 DATABASE_PATH = DATA_DIR / "stayscout.db"
@@ -156,7 +159,52 @@ def startup() -> None:
 
 @app.get("/api/health")
 def health_check() -> dict[str, str]:
-    return {"status": "ok", "database": str(DATABASE_PATH)}
+    return {
+        "status": "ok",
+        "database": str(DATABASE_PATH),
+        "geoapify": "key is configured" if geoapify_api_key() else "key is not configured",
+    }
+
+
+def location_for_api(zip_code: str) -> dict[str, object]:
+    """Translate controller outcomes to credential-safe HTTP responses."""
+    try:
+        return lookup_us_zip(zip_code)
+    except MissingGeoapifyKeyError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    except ZipNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+    except GeoapifyRateLimitError as error:
+        raise HTTPException(status_code=429, detail=str(error), headers={"Retry-After": "60"}) from error
+    except GeoapifyRequestError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+
+
+@app.get("/api/demo/zip-location")
+def demo_zip_location() -> dict[str, object]:
+    """The fixed ZIP 16802 route used by the in-class demonstration."""
+    return location_for_api("16802")
+
+
+@app.get("/api/zip-location")
+def zip_location(zip_code: str = Query(..., pattern=r"^[0-9]{5}$", description="Five-digit U.S. ZIP code")) -> dict[str, object]:
+    """Look up a user-entered five-digit U.S. ZIP code."""
+    return location_for_api(zip_code)
+
+
+@app.get("/api/hotels")
+def hotels_near_zip(zip_code: str = Query(..., pattern=r"^[0-9]{5}$")) -> dict[str, object]:
+    """Discover hotel locations; this endpoint never promises bookable rooms."""
+    try:
+        return search_hotels(zip_code)
+    except MissingGeoapifyKeyError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    except ZipNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+    except GeoapifyRateLimitError as error:
+        raise HTTPException(status_code=429, detail=str(error), headers={"Retry-After": "60"}) from error
+    except GeoapifyRequestError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
 
 
 @app.get("/api/stays")

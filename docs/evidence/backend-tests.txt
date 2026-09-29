@@ -1,0 +1,25 @@
+test_rejects_a_mismatched_result (backend.test_geoapify.GeoapifyZipLookupTests.test_rejects_a_mismatched_result) ... ok
+test_returns_a_small_verified_location_response (backend.test_geoapify.GeoapifyZipLookupTests.test_returns_a_small_verified_location_response) ... ok
+test_sanitizes_provider_failures (backend.test_geoapify.GeoapifyZipLookupTests.test_sanitizes_provider_failures) ... ok
+test_all_bad_records_are_failure_not_empty_success (backend.test_hotel_search.HotelSearchTests.test_all_bad_records_are_failure_not_empty_success) ... ok
+test_duplicate_provider_ids_do_not_duplicate_map_results (backend.test_hotel_search.HotelSearchTests.test_duplicate_provider_ids_do_not_duplicate_map_results) ... ok
+test_empty_success_is_empty_and_has_center (backend.test_hotel_search.HotelSearchTests.test_empty_success_is_empty_and_has_center) ... ok
+test_invalid_inputs_never_call_provider (backend.test_hotel_search.HotelSearchTests.test_invalid_inputs_never_call_provider) ... ok
+test_malformed_places_payload_is_failure (backend.test_hotel_search.HotelSearchTests.test_malformed_places_payload_is_failure) ... ok
+test_missing_fields_stay_null_and_geometry_fallback_is_used (backend.test_hotel_search.HotelSearchTests.test_missing_fields_stay_null_and_geometry_fallback_is_used) ... ok
+test_network_timeout_is_502 (backend.test_hotel_search.HotelSearchTests.test_network_timeout_is_502) ... ok
+test_partial_bad_records_and_outside_radius_are_disclosed (backend.test_hotel_search.HotelSearchTests.test_partial_bad_records_and_outside_radius_are_disclosed) ... ok
+test_quota_and_service_errors_return_safe_http_responses (backend.test_hotel_search.HotelSearchTests.test_quota_and_service_errors_return_safe_http_responses) ... ok
+test_request_limit_is_disclosed (backend.test_hotel_search.HotelSearchTests.test_request_limit_is_disclosed) ... ok
+test_search_preserves_leading_zero_and_uses_exact_radius (backend.test_hotel_search.HotelSearchTests.test_search_preserves_leading_zero_and_uses_exact_radius) ... ok
+test_unresolved_is_404 (backend.test_hotel_search.HotelSearchTests.test_unresolved_is_404) ... ok
+test_wrong_postcode_country_type_and_invalid_coordinates_stop_before_places (backend.test_hotel_search.HotelSearchTests.test_wrong_postcode_country_type_and_invalid_coordinates_stop_before_places) ... ok
+test_original_search_booking_cancel_delete_and_database_restart (backend.test_hotel_search.LegacyRegressionTests.test_original_search_booking_cancel_delete_and_database_restart) ... ok
+test_demo_route_returns_a_safe_missing_key_error (backend.test_zip_routes.ZipRouteTests.test_demo_route_returns_a_safe_missing_key_error) ... ok
+test_demo_route_returns_the_controller_response (backend.test_zip_routes.ZipRouteTests.test_demo_route_returns_the_controller_response) ... ok
+test_entered_zip_route_forwards_the_value (backend.test_zip_routes.ZipRouteTests.test_entered_zip_route_forwards_the_value) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.063s
+
+OK
