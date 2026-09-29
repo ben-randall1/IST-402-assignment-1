@@ -5,7 +5,7 @@
 **Observation date:** September 29, 2026
 **Project:** StayScout
 
-> **Submission status:** Implementation and local verification are complete. Before submitting, publish this local Assignment 2 branch with student approval, add the required screen-recorded demo link below, and confirm that the instructor can open the private repository and linked artifacts. The branch/artifact URLs below are prepared for publication and are not yet available remotely. This report has not been submitted to Canvas.
+> **Submission status:** Implementation and local verification are complete. Before submitting, add the required screen-recorded demo link below and confirm that the instructor can open the private repository and linked artifacts. This report has not been submitted to Canvas.
 
 ## 1. Project access and startup
 
