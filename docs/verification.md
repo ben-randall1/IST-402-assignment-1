@@ -9,7 +9,7 @@ Date: September 29, 2026 (America/New_York). Live data is time-sensitive; counts
 | `python3 -m unittest discover -s backend -t . -v` | All postcode, hotel controller, HTTP and sample-data regression checks pass without network calls | 20 tests passed. [Output](evidence/backend-tests.txt). |
 | `npm --prefix frontend test` | Request state, validation, errors and stale-response checks pass without API calls | 7 tests passed. [Output](evidence/frontend-tests.txt). |
 | `npm --prefix frontend run build` | Vue compiles into production assets | Passed. [Output](evidence/production-build.txt). |
-| `.env` ignored and absent from tracked files | `git check-ignore .env` identifies the ignore rule; `git ls-files .env` prints nothing | Passed before commit. Credential-value scan of source and built frontend is also performed before publishing. |
+| `.env` ignored and absent from tracked files | `git check-ignore .env` identifies the ignore rule; `git ls-files .env` prints nothing | Passed before commit. Credential-value scan passed for source, documentation, evidence and built frontend. |
 
 Backend coverage includes exact requested postcode, U.S. country, postcode result type when supplied, finite/in-range coordinates, leading zeros, five ASCII digits, 5,000 m request filter, hotel category, 100-result cap, missing names/addresses, geometry fallback, provider-ID deduplication, omitted unusable records, empty success, wholly malformed failure, timeouts, 401/403/429/500 responses at both geocoding and Places stages, and sanitized errors. Legacy checks seed an isolated SQLite database, search Harbor, create a booking, cancel it, reopen the app/database, observe persisted cancellation, then delete it.
 

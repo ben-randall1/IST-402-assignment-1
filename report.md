@@ -5,12 +5,12 @@
 **Observation date:** September 29, 2026
 **Project:** StayScout
 
-> **Submission status:** Implementation and local verification are complete. Before submitting, add the required screen-recorded demo link below and confirm that the instructor can open the private repository and linked artifacts. This report has not been submitted to Canvas.
+> **Submission status:** Implementation and local verification are complete. Before submitting, publish this local Assignment 2 branch with student approval, add the required screen-recorded demo link below, and confirm that the instructor can open the private repository and linked artifacts. The branch/artifact URLs below are prepared for publication and are not yet available remotely. This report has not been submitted to Canvas.
 
 ## 1. Project access and startup
 
 - Repository / Assignment 2 branch: [StayScout — codex/assignment-2-part-1](https://github.com/ben-randall1/IST-402-assignment-1/tree/codex/assignment-2-part-1).
-- Assessed implementation commit: **__ASSESSMENT_COMMIT__**. The report's final commit can follow this code checkpoint.
+- Assessed implementation commit: **6bd37a28a8785411555e70231a3716f8da7e2843**. The report's final commit can follow this code checkpoint.
 - Startup and configuration: [README](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/README.md).
 - MVC and verification guidance: [AGENTS.md](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/AGENTS.md).
 

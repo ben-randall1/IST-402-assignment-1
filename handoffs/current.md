@@ -9,3 +9,5 @@ Verification: 20 backend tests, 7 frontend tests, production build, live 16802 (
 Local services: FastAPI at 127.0.0.1:8000 and Vue at 127.0.0.1:5173. See README for startup. Assignment 2 work is on codex/assignment-2-part-1, based on Assignment 1 HEAD ecee2db365bbab080aee4338d4722eb36faab926.
 
 Remaining before Canvas submission: student must record the demo, add the accessible video URL to report.md, and verify instructor access to the private repository. docs/demo-script.md provides the recording outline. Nothing has been submitted to Canvas. Part 2 shortlist is future work.
+
+Publication status: local commits are complete. Automatic approval review rejected the GitHub push because the student had not specifically authorized sending the code/report/evidence to that repository. Obtain explicit approval before pushing codex/assignment-2-part-1 to ben-randall1/IST-402-assignment-1. Do not bypass this rejection.
