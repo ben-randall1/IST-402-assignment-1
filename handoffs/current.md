@@ -1,13 +1,13 @@
-# Current handoff
+# Assignment 2.1 handoff — September 29, 2026
 
-## What works
+Part 1 extends a copy of the Codex Assignment 1 application in this folder. Original Assignment 1 files are unchanged. Root `.env` and an SQLite backup were copied locally and remain ignored; no credential values are recorded in evidence. System Python has the needed backend packages; the old project's `.venv` is missing httpx and should not be reused as-is.
 
-StayScout now uses SQLite for hotel searches and all booking CRUD actions. The database seeds once from the four instructor CSVs, then preserves created, cancelled, and deleted bookings across browser and API restarts. The frontend supports hotel-name search, traveler selection, create booking, history, cancel, and delete.
+Implemented live Geoapify hotel discovery, strict U.S. ZIP matching, bounded 5 km/100-record search, independent external-place model, Leaflet map/list synchronization, keyboard selection, all required search states, responsive interface, and preserved sample booking view. Leaflet 1.9.4 was the only newly requested dependency and was approved by the student.
 
-## Checked
+Verification: 20 backend tests, 7 frontend tests, production build, live 16802 (21 hotels), live 02108 (100 hotels/cap notice), list-to-map and keyboard map-to-list selection, invalid/unresolved ZIPs, mobile width check, and original Harbor sample search. Browser checks found and corrected Leaflet initial-view and keyboard-selection defects. Tests and details are in docs/verification.md and docs/evidence/.
 
-SQLite 3.42.0 was present in the project Python environment and passed a create/close/reopen persistence check. Browser verification searched Harbor successfully, created a booking for Demo Traveler 6, read it in history, cancelled it while retaining it, refreshed the browser, restarted the backend, verified it still existed as cancelled, and deleted the test booking. A no-results search for `Not A Hotel` showed a clear message. `npm run build` passed.
+Local services: FastAPI at 127.0.0.1:8000 and Vue at 127.0.0.1:5173. See README for startup. Assignment 2 work is on codex/assignment-2-part-1, based on Assignment 1 HEAD ecee2db365bbab080aee4338d4722eb36faab926.
 
-## Limitations and next task
+Remaining before Canvas submission: student must record the demo, add the accessible video URL to report.md, and verify instructor access to the private repository. docs/demo-script.md provides the recording outline. Nothing has been submitted to Canvas. Part 2 shortlist is future work.
 
-The private GitHub repository is `ben-randall1/IST-402-assignment-1`; the merged Part 2 work is pushed to `main`. The local SQLite database is intentionally untracked, so each new clone seeds its own first-run database. The reviewed Part 2 merge checkpoint is `d510b702b896a20e8ac92bd41c7dee26cac75743`. Next task: add instructor-accessible screenshots, grant the instructor repository access, and upload `report.md` for Part 2.
+Publication authorization: the student explicitly approved pushing the completed Assignment 2 code, report and verification evidence to codex/assignment-2-part-1 in the private ben-randall1/IST-402-assignment-1 repository. Credentials and the local database are excluded. The repository visibility and main branch remain unchanged.
