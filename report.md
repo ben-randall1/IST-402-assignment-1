@@ -1,76 +1,104 @@
-# Assignment 2.1 — Live Hotel Search and Map
+# Assignment 3.1 — Research and Design
 
 **Student:** Ben Randall
+
 **Course:** IST 402, Section 003
-**Observation date:** September 29, 2026
-**Project:** StayScout
 
-> **Submission status:** Implementation and local verification are complete. Before submitting, add the required screen-recorded demo link below and confirm that the instructor can open the private repository and linked artifacts. This report has not been submitted to Canvas.
+**Project:** A little space
 
-## 1. Project access and startup
+**Milestone date:** October 15, 2026
 
-- Repository / Assignment 2 branch: [StayScout — codex/assignment-2-part-1](https://github.com/ben-randall1/IST-402-assignment-1/tree/codex/assignment-2-part-1).
-- Assessed implementation commit: **6bd37a28a8785411555e70231a3716f8da7e2843**. The report's final commit can follow this code checkpoint.
-- Startup and configuration: [README](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/README.md).
-- MVC and verification guidance: [AGENTS.md](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/AGENTS.md).
+**Status:** The Part 3.1 design package is complete locally. Repository publication and instructor access still need confirmation before upload. A working application, runtime timing measurements and live-model demonstration belong to later milestones and are not claimed here. Nothing has been submitted to Canvas.
 
-Start FastAPI from the project root with `python3 -m uvicorn backend.main:app --host 127.0.0.1 --port 8000`, then run `npm --prefix frontend run dev`. Open `http://127.0.0.1:5173/`. A fresh checkout requires the declared Python/frontend dependencies and a Geoapify key in the ignored root `.env`; follow the README's environment check and installation-approval instructions first. All backend provider requests use that local key. The map uses public OpenStreetMap tiles, so no backend credential is exposed to the browser.
+## 1. Project access and submitted version
 
-The project extends the existing Vue/FastAPI/SQLite application. Existing hotel/trip joins, sample search, simulated booking CRUD, and SQLite data are preserved in the labeled **Sample stays** view. The Assignment 1 source folder remains unchanged.
+Repository: [ben-randall1/IST-402-assignment-1](https://github.com/ben-randall1/IST-402-assignment-1).
 
-## 2. Research notes
+Design branch: `codex/assignment-3-part-1`.
 
-Research was conducted before this session's implementation through official product help and developer documentation. [Full notes and source links](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/docs/research.md).
+Assessed design checkpoint: `3f99fcf06482c87ea9df8f2d9dfb50e27dd5a688`. This is a local commit; its remote links will become usable only after the branch is pushed and the instructor has access to the private repository.
 
-- [Google Hotels](https://support.google.com/travel/answer/6276008?hl=en): its connected list/map provides useful spatial context. Price and booking controls rely on data this API does not supply, so StayScout includes only supported location information.
-- [Airbnb search help](https://www.airbnb.com/help/article/39): map exploration is useful, but its documented list/map membership can differ. StayScout deliberately uses one returned collection and one selected place ID for both views.
-- [Geoapify geocoding](https://apidocs.geoapify.com/docs/geocoding/forward-geocoding/): structured postcode lookup and country filtering support ZIP searches. StayScout also verifies the returned postcode, U.S. country and coordinates rather than trusting a fallback result.
-- [Geoapify Places](https://apidocs.geoapify.com/docs/places/): hotel categories, radius filtering and bounded results fit discovery. They do not establish room availability; missing names/addresses receive honest labels.
-- [Leaflet](https://leafletjs.com/reference.html) and [OSM tile policy](https://operations.osmfoundation.org/policies/tiles/): keyboard markers, shared events and visible attribution informed the map. Public HTTPS tiles use normal browser caching; there is no offline prefetch feature.
-- [Geoapify pricing](https://www.geoapify.com/pricing/): free-tier usage is bounded. Search requires explicit submission; panning and typing do not make provider requests. Tests simulate failures instead of exhausting quota.
+The new project is organized under `assignment-3/`, separate from the existing hotel application. [Project README](assignment-3/README.md) explains the design artifacts and review commands. [Agent guidance](assignment-3/AGENTS.md) records the implementation boundaries. The previous submission report is preserved in [docs/assignment-2-part-2-report.md](docs/assignment-2-part-2-report.md).
 
-## 3. Early mockup and changes
+Review the static walkthrough locally with no dependency installation or credentials:
 
-[View the early SVG mockup](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/docs/early-mockup.svg). It was saved before implementation and shows the ZIP form, matching numbered hotel cards/map pins, 5 km circle, missing-field treatment and state notes.
+```sh
+python3 assignment-3/check_design.py
+python3 -m http.server 5184 --bind 127.0.0.1 --directory assignment-3
+```
 
-The implementation retains the cream/forest visual direction and connected views. An explicitly labeled map illustration was added for the initial state. Phone layouts put the map above the list. “Show search area” restores the radius overview; selecting a hotel zooms into its neighborhood. A disclosure explains the search center, distances and coverage limits. Legacy booking behavior remains in a separate, clearly labeled sample-data view.
+Open `http://127.0.0.1:5184/prototype.html`. This is a clickable storyboard with fictional screens, no running breathing timer, provider calls or saved user data. The later application will use Vue in its `frontend/`, FastAPI in its `backend/`, and a separate SQLite database. Future run commands will be documented after implementation.
 
-## 4. Screen-recorded demonstration
+## 2. Proposal, main experience and research rationale
 
-**Video link: PENDING — record the finished application and insert an instructor-accessible URL before submission.**
+A little space supports a short skill that someone deliberately chooses, can leave without explanation, and can complete without typing. The first working scope is **paced breathing: inhale for four, exhale for six, repeated six times**. The model provides brief orientation outside the exercise. **STOP** is an optional later second choice, preserving its four steps: stop, step back, observe internally/externally, proceed mindfully. Grounding and cognitive reframing are outside the first working scope to keep it coherent and reduce required disclosure.
 
-[Recording outline](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/docs/demo-script.md). It covers live ZIP search, list/map selection, keyboard input, leading zeros, invalid/unresolved ZIPs, coverage limitations and preserved sample behavior. The outline is not a substitute for the required video.
+This is a coursework prototype for fictional role-play on localhost. It does not diagnose, provide therapy, promise benefit or imply monitoring. It will not be deployed or offered to someone in distress.
 
-## 5. Verification record
+[Full research notes](assignment-3/research.md) use the [assignment overview's study summary](https://psu.instructure.com/courses/2484533/pages/assignment-3-overview-mental-health-skills-application) as the primary research source. The reported sample and coded mentions motivate interface decisions; they are not evidence of clinical effectiveness. Additional public sources were inspected for interaction/engineering ideas: [Headspace's short breathing example](https://www.headspace.com/meditation/breathing-exercises), [VA PTSD Coach documentation](https://mobile.va.gov/app/ptsd-coach), [W3C motion guidance](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html), and [MDN elapsed-time documentation](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now). These were documentation reviews, not logged-in app tests or clinical comparisons.
 
-[Full expected-versus-observed record](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/docs/verification.md), [backend output](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/docs/evidence/backend-tests.txt), [frontend output](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/docs/evidence/frontend-tests.txt), and [build output](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/docs/evidence/production-build.txt).
+| Findings | Decision and tradeoff |
+| --- | --- |
+| R1: brief skills | Six 10-second rounds, locally paced. Predictable timing reduces variation but gives fewer exercise choices. Actual duration still needs measurement. |
+| R2 and D4: immediate, persistent safety | A visible Crisis support control opens bundled information from every screen, independent of the model. Contacting an external service still requires suitable device/connectivity. |
+| R3 and R4: permission to stop and personal control | Explicit Start, Pause, Stop and Leave; no explanation, score or automatic next exercise. A remembered preference only offers a choice. |
+| D1: interface contraction | The user selects Less on screen; no distress detection from typing, silence or sentiment. This preserves control but cannot automatically react to unexpressed needs. |
+| D2: one action | Each exercise screen shows the current phase; safety/exit controls remain visible. Explanations and choices sit before or after the skill. |
+| D3: minimize emotional cost | Chat, feedback and remembering a preference are optional. No mood rating, disclosure requirement or required completion survey. Less collected context limits personalization. |
+| D5: low-burden personalization | One optional “Use this as my usual” action, transparent source, override and clear controls. No hidden inference that completion means benefit. |
+| D6: low-stimulus, neutral presentation | Quiet colors, restrained copy, no compulsory sound, static pacing alternative. Motion removal preserves phase/count information. |
 
-| Input / action | Expected | Observed on September 29, 2026 |
+[The design rationale](assignment-3/design.md) provides individual R1–R4/D1–D6 decisions, alternatives and proposed checks. The first design revision replaced inferred distress adaptation with explicit simplification, and narrowed open-ended model-generated support to reviewed orientation choices.
+
+## 3. Early sketch and flow
+
+- [Annotated six-screen storyboard](assignment-3/storyboard.svg).
+- [Clickable design walkthrough](assignment-3/prototype.html).
+- [Main flow diagram and screen contracts](assignment-3/design.md#main-experience).
+- [Entry screenshot](assignment-3/evidence/design-entry.png), [single-phase sketch](assignment-3/evidence/design-skill.png), [support panel](assignment-3/evidence/design-support.png), and [phone layout](assignment-3/evidence/design-mobile.png).
+
+The main path is **choose → ready → explicitly start → six local breathing rounds → neutral ending**. Optional chat can be skipped, and model failure leaves the fixed practice available. Stop leads directly to a neutral exit. Support access during a skill pauses it; returning never automatically resumes. History is separate from the active exercise.
+
+The storyboard was prepared before application implementation. Its reviewer selector exposes twelve proposed states, including loading/failure, paused, stopped and history. Review led to a sticky shared header so crisis access and leave controls stay visible when a screen scrolls. The walkthrough intentionally has inert resource buttons so fictional tests cannot accidentally call or message a service.
+
+**Timing plan:** six × (4 seconds inhale + 6 seconds exhale) = 60 seconds of planned instruction. Measure from the first displayed instruction through the final exhale; ordinary rendering/scheduling delays count toward the <=90-second intended duration. No model requests or storage waits belong inside that sequence. Entry/setup is estimated separately at 10–25 seconds, plus optional message wait/reading. Those are assumptions, not measured observations. User-chosen pauses, backgrounding and support time are tracked separately; resuming repeats the interrupted round with replay reported explicitly. The timer never forces exit or another exercise.
+
+## 4. Model role, persistence and safety plan
+
+[Technical design](assignment-3/technical-design.md) specifies the proposed model contract, context, routes, resource copy, failure handling and timer plan. [Proposed SQLite schema](assignment-3/schema.sql) is an isolated schema experiment.
+
+The model interprets an optional fictional message using fixed enabled-skill context, the last four messages from the current session and an explicit usual-skill preference. It returns a reviewed `response_id` and optional enabled skill ID. The application renders the corresponding approved wording. For example, a question about counts selects `explain_breathing`. This adds natural-language intent handling while keeping therapeutic content bounded. Arbitrary advice, unknown responses, new steps and automatic routing are rejected. A limitation is reduced conversational range; unsupported requests receive a scope response. Live testing must establish whether this contribution is useful.
+
+The prior backend's free OpenRouter Nemotron pattern is the first provider candidate. Neither LLM key nor exact model is configured today; a current model availability/configuration check is needed for Part 3.2. The proposed request has an eight-second timeout, no automatic retry and no place inside the timed skill. Routine tests use labeled mocks.
+
+SQLite will save versioned fixed skills; sessions with neutral outcomes, timestamps and progress; ordered fictional conversation messages and response provenance; and at most one explicitly chosen usual-skill preference. History shows date/skill/outcome first and opens transcript details only on request. Parameterized retrieval replaces model-generated SQL. Old transcripts are not automatically sent to the provider. Deleting a source session removes its messages and related usual choice. Local storage is unencrypted; provider processing is separate from local history deletion. No real health information, names, diagnoses or analytics are requested.
+
+A static, region-labeled crisis-information panel remains available during every state and failure. Verified U.S. resource routes are documented in the technical design; no service was contacted. A conservative phrase rule may additionally show that same panel for explicit crisis-related fictional text and bypass model generation. Its false positives and misses are acknowledged; no-match never establishes safety. The support route always works independently of detection, generation or successful saving.
+
+Reuse is limited to architecture and verification patterns from the hotel project: Vue request state, FastAPI validation/safe errors, SQLite transactions and fixture tests. Hotel tables, map, generated SQL execution and booking logic are not part of the new application. Prior missing live-hotel-chatbot verification is not retroactively claimed complete.
+
+## 5. Verification and unresolved questions
+
+[Observed design checks](assignment-3/evidence/design-checks.txt), [browser review](assignment-3/evidence/browser-review.md), [12-screen visibility checks](assignment-3/evidence/storyboard-screen-checks.json), and [support-opening checks](assignment-3/evidence/storyboard-support-checks.json) are the current evidence.
+
+| Check | Expected | Observed October 15 |
 | --- | --- | --- |
-| Live ZIP `16802` | Verify exact U.S. ZIP, find hotels within 5 km, show matching map/list | State College / 16802; 21 returned hotels. [Dated response snapshot](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/docs/evidence/live-16802-2026-09-29.json). |
-| Select Nittany Lion Inn in list | Same hotel selected on map | Matching selected card/marker and popup; displayed coordinates `40.79695, -77.87054`. |
-| Live ZIP `02108` | Preserve leading zero | Boston / 02108; 100 results and a visible cap notice. A missing name received “Hotel name unavailable.” |
-| Enter / Space on Boston map pins | Same selected hotel in the list | Enter selected Beacon Hill Hotel and Bistro; Space selected Churchill at Boston View. |
-| `1234` after results | Invalid input; obsolete results cleared | Five-digit message, no remaining hotel cards or live map. |
-| `00000` | Unresolved postcode, not an empty hotel search | Explicit no-verified-U.S.-ZIP message. |
-| 390 × 844 viewport | Responsive map/list without horizontal overflow | Page width equaled viewport width; map and attribution visible. |
-| Sample view: `Harbor` | Existing behavior preserved | Two supplied sample stays returned with their original calculated prices. |
-| Automated backend / frontend suites | Repeatable edge-case checks | 20 backend tests and 7 frontend tests passed; production build passed. |
+| Artifact links, SVG syntax and research mapping | Reviewable files and all ten study codes addressed | Passed design script. |
+| Proposed SQLite schema in a temporary fictional DB | Valid constraints, reopening and dependent deletion | Passed; sessions/messages/preferences reopened, deletion removed dependent data and preserved fixed skill content. This is not application persistence. |
+| Sequence arithmetic | Six 4–6 cycles total 60 seconds | Passed arithmetic only; runtime timing not measured. |
+| Twelve walkthrough states | Support/leave remain visible and panel opens | Passed each state. |
+| Support during a static inhale, then Escape | Return paused; require explicit Resume | Observed. |
+| Explicit simpler mode and usual choice | Reversible simplification; offer without auto-start | Observed in page-memory simulation only. |
+| Phone width 390 × 844 | No horizontal overflow; model-error controls usable | Document and viewport width both 390; panel opened. |
 
-Live counts are dated observations, not fixed test assertions. Automated tests simulate successful empty results, wrong-location responses, timeouts, malformed data, quota/rate-limit responses, and missing fields. Service errors cannot become successful empty results. The sample booking regression uses a temporary SQLite database and verifies creation, cancellation, persistence on reopening, and removal.
+The first document check found the browser-review file had not yet been written; the file was added with actual observations and checks rerun. No package was installed. Existing hotel runtime source was not changed, so a Vue production build/backend regression run would not establish anything new about this design-only milestone and was not claimed.
 
-Corrections during verification: restore package executable symlinks after a local copy; initialize the Leaflet view before accessing marker DOM; explicitly handle Enter/Space so popup selection also updates Vue state. These are documented in the evidence log.
+Open questions concern no-motion pacing clarity, optional-message latency, wording of the usual-skill offer, false positives/misses in the conservative crisis rule, current model availability, and whether STOP should wait until the core flow passes. Parts 3.2/3.3 must resolve them through actual implementation evidence.
 
-## 6. AI disclosure and evidence
+[Evaluation plan](assignment-3/verification.md) contains fifteen fictional scenarios and three cross-case behavior checks: independent support/exit, application-controlled timing/sequence, and explicit reviewable memory. They are **planned, not observed runtime passes**. Later work must add measured timing, browser/DB evidence, limited live-model variation, clean-checkout checks and the required finished-demo/failure-analysis recordings. A working app or recorded runtime demo is not required by Part 3.1.
 
-**Tool:** OpenAI Codex desktop. **Model:** GPT-6 Astra (`gpt-6-astra`). Used for assignment review, official-source research, early mockup, implementation, automated checks, browser verification, and report drafting. No subagents or other AI models were used in this session.
+## 6. AI disclosure and submission status
 
-[Selected prompt excerpts, code links and revised approaches](https://github.com/ben-randall1/IST-402-assignment-1/blob/codex/assignment-2-part-1/prompts/assignment-2-evidence.md). The student identified the existing Assignment 1 project and explicitly approved adding Leaflet 1.9.4 after an environment check. Existing Vue/Vite and backend packages were reused. Prior Assignment 1 work predates this session and is not attributed to Astra here.
+[AI-USE.md](AI-USE.md) names OpenAI Codex desktop, the GPT-6 family agent (exact runtime identifier unavailable), its roles and prior-session evidence boundaries. No subagents or live application model were used. [Curated evidence log](assignment-3/evidence/process.md) connects selected prompts, revised approaches, artifacts and checks; it contains no credentials, participant records or real distress disclosures.
 
-## 7. Limits and remaining submission work
-
-The provider request is capped at 100 records and coverage is not exhaustive. The 5 km radius is centered on the returned postcode point, not the traveler's position or the complete ZIP area. Distances are calculated straight-line estimates. There are no invented hotel prices, ratings, room availability or live booking confirmations. Co-located markers can overlap; each returned hotel remains accessible through its list control.
-
-The Part 2 persistent live-hotel shortlist is not implemented or claimed in this Part 1 submission. Existing SQLite sample bookings are distinct from that future feature.
-
-Before upload: add the real video link, confirm instructor access to the private repository and every artifact, review the report, and submit this `report.md` to the Part 1 Canvas assignment. No deployment or paid plan is required.
+Part 3.1 is complete locally as a research/design milestone. Before Canvas upload, review the proposal, publish this branch to the private repository and confirm instructor access. Relative artifact links resolve in the repository once published; the assessed design commit identifies the reviewed package. No deployment, clinical test, paid API call or Part 3.2 implementation is required to finish this milestone.

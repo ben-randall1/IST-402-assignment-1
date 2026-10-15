@@ -1,0 +1,52 @@
+Assignment 3.1 design/schema experiment
+Observed UTC: 2026-10-15T18:22:08.911148+00:00
+Scope: static artifacts, temporary SQLite and timing arithmetic; no runtime skill or live model.
+PASS: required artifact exists: README.md
+PASS: local link resolves: README.md -> design.md
+PASS: local link resolves: README.md -> storyboard.svg
+PASS: local link resolves: README.md -> prototype.html
+PASS: local link resolves: README.md -> research.md
+PASS: local link resolves: README.md -> technical-design.md
+PASS: local link resolves: README.md -> schema.sql
+PASS: local link resolves: README.md -> verification.md
+PASS: local link resolves: README.md -> ../AI-USE.md
+PASS: local link resolves: README.md -> evidence/process.md
+PASS: local link resolves: README.md -> ../report.md
+PASS: local link resolves: README.md -> evidence/process.md
+PASS: local link resolves: README.md -> verification.md
+PASS: required artifact exists: AGENTS.md
+PASS: required artifact exists: research.md
+PASS: local link resolves: research.md -> design.md
+PASS: local link resolves: research.md -> technical-design.md
+PASS: required artifact exists: design.md
+PASS: local link resolves: design.md -> storyboard.svg
+PASS: local link resolves: design.md -> prototype.html
+PASS: local link resolves: design.md -> technical-design.md
+PASS: local link resolves: design.md -> technical-design.md
+PASS: local link resolves: design.md -> verification.md
+PASS: required artifact exists: technical-design.md
+PASS: local link resolves: technical-design.md -> schema.sql
+PASS: required artifact exists: verification.md
+PASS: local link resolves: verification.md -> evidence/design-checks.txt
+PASS: local link resolves: verification.md -> evidence/browser-review.md
+PASS: required artifact exists: evidence/process.md
+PASS: local link resolves: evidence/process.md -> ../design.md
+PASS: local link resolves: evidence/process.md -> ../technical-design.md
+PASS: local link resolves: evidence/process.md -> design-checks.txt
+PASS: local link resolves: evidence/process.md -> browser-review.md
+PASS: storyboard is valid SVG/XML
+PASS: all ten study codes have design traceability
+PASS: walkthrough has no remote model or persistent-storage implementation
+PASS: walkthrough has independent support panel and inert contact controls
+PASS: planned 4–6 sequence is six cycles / 60 seconds, not a measured runtime
+PASS: foreign keys enabled in schema experiment
+PASS: usual preference cannot have multiple singleton IDs
+PASS: session cannot refer to unknown skill
+PASS: session status rejects unrecognized labels
+PASS: session message sequence is unique
+PASS: message source cannot mislabel user input as model output
+PASS: fictional session/conversation survive reopening SQLite file
+PASS: explicit fictional usual choice survives reopening
+PASS: deleting source session cascades to messages and usual choice
+PASS: history deletion preserves fixed skill content
+COMPLETE: design/schema checks only. Browser observations are recorded separately.

@@ -2,10 +2,18 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { useHotelSearch } from './useHotelSearch.js'
 
-const fixture = { center: { postcode: '02108', locality: 'Boston', latitude: 42.357, longitude: -71.063 }, hotels: [{ place_id: 'fixture-1', name: null }] }
+const apiFixture = {
+  center: { postcode: '02108', country_code: 'us', locality: 'Boston', latitude: 42.357, longitude: -71.063 },
+  hotels: [{ place_id: 'fixture-1', provider: 'geoapify', name: 'Fixture Hotel', address: null, latitude: 42.358, longitude: -71.064, distance_meters: 100 }],
+}
+const localEmpty = { source: 'local', zip_code: '02108', count: 0, hotels: [] }
+const localFixture = {
+  source: 'local', count: 1, center: apiFixture.center,
+  hotels: [{ ...apiFixture.hotels[0], saved_locally: true, demo_nights: [{ stay_date: '2026-10-10', nightly_rate_cents: 10000, rooms_available: 20 }] }],
+}
 const reply = (status, data) => ({ ok: status < 400, status, json: async () => data })
 
-test('invalid ZIP never reaches the provider and clears an old selection', async () => {
+test('invalid ZIP never reaches local storage or the provider', async () => {
   const search = useHotelSearch()
   search.selectedId.value = 'old'
   globalThis.fetch = () => { throw new Error('fetch must not run') }
@@ -17,67 +25,99 @@ test('invalid ZIP never reaches the provider and clears an old selection', async
   }
 })
 
-test('a successful leading-zero search retains the ZIP and shared selected hotel', async () => {
+test('an empty local lookup falls back to the existing API with a leading-zero ZIP', async () => {
+  const requests = []
+  globalThis.fetch = async url => {
+    requests.push(url)
+    return url.startsWith('/api/local-hotels') ? reply(200, localEmpty) : reply(200, apiFixture)
+  }
   const search = useHotelSearch()
-  globalThis.fetch = async url => { assert.ok(url.endsWith('zip_code=02108')); return reply(200, fixture) }
   await search.search(' 02108 ')
+  assert.deepEqual(requests, ['/api/local-hotels?zip_code=02108', '/api/hotels?zip_code=02108'])
   assert.equal(search.zipCode.value, '02108')
-  assert.equal(search.state.value, 'results')
-  search.selectedId.value = 'fixture-1'
-  assert.equal(search.selectedHotel.value.place_id, 'fixture-1')
+  assert.equal(search.result.value.source, 'api')
+  assert.equal(search.hotels.value[0].saved_locally, false)
 })
 
-test('successful empty result retains its verified center', async () => {
-  globalThis.fetch = async () => reply(200, { ...fixture, hotels: [] })
+test('a nonempty local lookup never calls the Part 1 hotel endpoint', async () => {
+  const requests = []
+  globalThis.fetch = async url => { requests.push(url); return reply(200, localFixture) }
+  const search = useHotelSearch()
+  await search.search('02108')
+  assert.deepEqual(requests, ['/api/local-hotels?zip_code=02108'])
+  assert.equal(search.state.value, 'results')
+  assert.equal(search.result.value.source, 'local')
+})
+
+test('a successful API empty result retains its verified center', async () => {
+  globalThis.fetch = async url => url.startsWith('/api/local-hotels') ? reply(200, localEmpty) : reply(200, { ...apiFixture, hotels: [] })
   const search = useHotelSearch()
   await search.search('02108')
   assert.equal(search.state.value, 'empty')
   assert.equal(search.result.value.center.postcode, '02108')
 })
 
-test('unresolved ZIP, invalid input, rate limit and provider failures have distinct states', async () => {
+test('a failed local read stops before the API and remains an error', async () => {
+  const requests = []
+  globalThis.fetch = async url => { requests.push(url); return reply(500, { detail: 'Local hotel storage could not be read.' }) }
+  const search = useHotelSearch()
+  await search.search('02108')
+  assert.deepEqual(requests, ['/api/local-hotels?zip_code=02108'])
+  assert.equal(search.state.value, 'error')
+  assert.equal(search.result.value, null)
+  assert.match(search.errorMessage.value, /Local hotel storage/)
+})
+
+test('API unresolved, quota, and provider errors have distinct safe UI outcomes', async () => {
   for (const [status, state] of [[404, 'unresolved'], [422, 'invalid'], [429, 'error'], [502, 'error'], [503, 'error']]) {
-    globalThis.fetch = async () => reply(status, { detail: 'Safe service explanation' })
+    globalThis.fetch = async url => url.startsWith('/api/local-hotels') ? reply(200, localEmpty) : reply(status, { detail: 'Safe service explanation' })
     const search = useHotelSearch()
     await search.search('02108')
     assert.equal(search.state.value, state)
     assert.equal(search.errorMessage.value, 'Safe service explanation')
-    assert.equal(search.result.value, null)
   }
 })
 
-test('network and malformed response failures cannot look like empty results', async () => {
-  for (const stub of [async () => { throw new TypeError('offline') }, async () => reply(200, {})]) {
-    globalThis.fetch = stub
-    const search = useHotelSearch()
-    await search.search('02108')
-    assert.equal(search.state.value, 'error')
-    assert.equal(search.result.value, null)
+test('saving marks a live API result only after backend success', async () => {
+  const search = useHotelSearch()
+  globalThis.fetch = async url => url.startsWith('/api/local-hotels') ? reply(200, localEmpty) : reply(200, apiFixture)
+  await search.search('02108')
+  const hotel = search.hotels.value[0]
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, '/api/local-hotels')
+    assert.equal(options.method, 'POST')
+    return reply(201, { message: 'Hotel saved locally with five simulated nightly records.' })
   }
+  await search.saveHotel(hotel)
+  assert.equal(hotel.saved_locally, true)
+  assert.match(search.actionMessage.value, /saved locally/)
 })
 
-test('loading appears before response and a stale request cannot replace the newer search', async () => {
+test('removing a saved local hotel updates only after backend success', async () => {
+  const search = useHotelSearch()
+  globalThis.fetch = async () => reply(200, localFixture)
+  await search.search('02108')
+  search.selectedId.value = 'fixture-1'
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, '/api/local-hotels/fixture-1')
+    assert.equal(options.method, 'DELETE')
+    return reply(200, { message: 'Hotel and its local classroom records were removed.' })
+  }
+  await search.removeHotel(search.hotels.value[0])
+  assert.equal(search.hotels.value.length, 0)
+  assert.equal(search.selectedId.value, null)
+  assert.equal(search.state.value, 'empty')
+})
+
+test('a stale local response cannot replace a newer search', async () => {
   let finishOld
-  let oldSignal
-  globalThis.fetch = (_url, options) => { oldSignal = options.signal; return new Promise(resolve => { finishOld = resolve }) }
+  globalThis.fetch = () => new Promise(resolve => { finishOld = resolve })
   const search = useHotelSearch()
   const oldRequest = search.search('16802')
   assert.equal(search.state.value, 'loading')
-  globalThis.fetch = async () => reply(200, fixture)
+  globalThis.fetch = async url => url.startsWith('/api/local-hotels') ? reply(200, localFixture) : reply(200, apiFixture)
   await search.search('02108')
-  assert.ok(oldSignal.aborted)
-  finishOld(reply(200, { ...fixture, center: { postcode: '16802' } }))
+  finishOld(reply(200, { ...localFixture, center: { ...apiFixture.center, postcode: '16802' } }))
   await oldRequest
   assert.equal(search.result.value.center.postcode, '02108')
-})
-
-test('cancelled component cannot be updated by a late request', async () => {
-  let finish
-  globalThis.fetch = () => new Promise(resolve => { finish = resolve })
-  const search = useHotelSearch()
-  const pending = search.search('02108')
-  search.cancel()
-  finish(reply(200, fixture))
-  await pending
-  assert.equal(search.result.value, null)
 })

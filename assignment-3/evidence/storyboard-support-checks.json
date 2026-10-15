@@ -1,0 +1,54 @@
+{
+  "label": "Static walkthrough support-opening checks only",
+  "observed_date": "2026-10-15",
+  "screens": [
+    {
+      "screen": "entry",
+      "opens": true
+    },
+    {
+      "screen": "ready",
+      "opens": true
+    },
+    {
+      "screen": "inhale",
+      "opens": true
+    },
+    {
+      "screen": "exhale",
+      "opens": true
+    },
+    {
+      "screen": "paused",
+      "opens": true
+    },
+    {
+      "screen": "ended",
+      "opens": true
+    },
+    {
+      "screen": "stopped",
+      "opens": true
+    },
+    {
+      "screen": "chat",
+      "opens": true
+    },
+    {
+      "screen": "loading",
+      "opens": true
+    },
+    {
+      "screen": "reply",
+      "opens": true
+    },
+    {
+      "screen": "error",
+      "opens": true
+    },
+    {
+      "screen": "history",
+      "opens": true
+    }
+  ]
+}

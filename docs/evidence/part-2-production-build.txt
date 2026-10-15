@@ -1,0 +1,18 @@
+
+> stayscout-frontend@1.0.0 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 24 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                      0.60 kB │ gzip:  0.37 kB
+dist/assets/LegacyStays-BIOwKcS-.css                 5.07 kB │ gzip:  1.52 kB
+dist/assets/HotelChat-Cf5heabg.css                   5.25 kB │ gzip:  1.44 kB
+dist/assets/index-W2h0sydC.css                      33.25 kB │ gzip: 10.84 kB
+dist/assets/_plugin-vue_export-helper-DlAUqK2U.js    0.09 kB │ gzip:  0.10 kB
+dist/assets/LegacyStays-BjD9afpw.js                  8.19 kB │ gzip:  2.92 kB
+dist/assets/HotelChat-BqHXYend.js                    8.92 kB │ gzip:  3.92 kB
+dist/assets/index-JxVJQGhm.js                      239.75 kB │ gzip: 78.92 kB
+✓ built in 766ms

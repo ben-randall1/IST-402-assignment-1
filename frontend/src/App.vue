@@ -3,21 +3,25 @@ import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref } from '
 import HotelMap from './components/HotelMap.vue'
 import { useHotelSearch } from './composables/useHotelSearch'
 const LegacyStays = defineAsyncComponent(() => import('./components/LegacyStays.vue'))
+const HotelChat = defineAsyncComponent(() => import('./components/HotelChat.vue'))
 const view = ref('explore')
-const { zipCode, state, result, errorMessage, selectedId, selectedHotel, hotels, search, cancel } = useHotelSearch()
+const { zipCode, state, result, errorMessage, actionMessage, selectedId, selectedHotel, hotels, pendingHotelIds, search, saveHotel, removeHotel, cancel } = useHotelSearch()
 const list = ref(null)
 const infoOpen = ref(false)
 const isFailure = computed(() => ['invalid', 'unresolved', 'error'].includes(state.value))
 const placeLabel = computed(() => result.value?.center.locality || `ZIP ${result.value?.center.postcode}`)
+const resultSourceLabel = computed(() => result.value?.source === 'local' ? 'Saved locally' : 'API results')
 const stateTitle = computed(() => ({ idle: 'Where will you go next?', loading: 'Looking around your ZIP…', invalid: 'Let’s check that ZIP code.', unresolved: 'We couldn’t locate that ZIP.', error: 'Search is temporarily unavailable.', empty: 'No nearby hotels returned.' })[state.value])
 const stateDescription = computed(() => {
   if (isFailure.value) return errorMessage.value
   if (state.value === 'loading') return 'First we verify the ZIP location, then find hotels within 5 km.'
+  if (state.value === 'empty' && result.value?.source === 'local') return `No saved hotels remain for ZIP ${result.value.center.postcode}. Search again to return to API results.`
   if (state.value === 'empty') return `Geoapify returned no hotels within 5 km of ZIP ${result.value.center.postcode}. Try another ZIP code.`
   return 'Start with a U.S. ZIP code. We’ll put nearby hotels on the map so you can get a feel for the area.'
 })
 const observationTime = computed(() => result.value ? new Date(result.value.observed_at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '')
 function formatDistance(distance) { return `${(distance / 1000).toFixed(1)} km` }
+function formatCents(cents) { return `$${(cents / 100).toFixed(2)}` }
 async function selectHotel(id, fromMap = false) {
   selectedId.value = id
   if (fromMap) {
@@ -32,7 +36,7 @@ onBeforeUnmount(cancel)
   <div class="app-shell">
     <header class="site-header">
       <a href="#" class="brand" aria-label="StayScout home" @click.prevent="view = 'explore'"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M16 2C8.5 2 3 7.5 3 15c0 9 13 19 13 19s13-10 13-19C29 7.5 23.5 2 16 2Z" fill="currentColor"/><path d="m10 18 6-9 6 9h-4v6h-4v-6Z" fill="#f4f3ec"/></svg>stayscout<span class="brand-period">.</span></a>
-      <nav aria-label="Main navigation"><button :class="{ active: view === 'explore' }" :aria-current="view === 'explore' ? 'page' : undefined" @click="view = 'explore'">Explore hotels</button><button :class="{ active: view === 'sample' }" :aria-current="view === 'sample' ? 'page' : undefined" @click="view = 'sample'">Sample stays <span>↗</span></button></nav>
+      <nav aria-label="Main navigation"><button :class="{ active: view === 'explore' }" :aria-current="view === 'explore' ? 'page' : undefined" @click="view = 'explore'">Explore hotels</button><button :class="{ active: view === 'chat' }" :aria-current="view === 'chat' ? 'page' : undefined" @click="view = 'chat'">Ask StayScout</button><button :class="{ active: view === 'sample' }" :aria-current="view === 'sample' ? 'page' : undefined" @click="view = 'sample'">Sample stays <span>↗</span></button></nav>
       <span class="header-note"><span></span> A little local knowledge</span>
     </header>
     <main v-if="view === 'explore'" class="explore-page">
@@ -51,8 +55,9 @@ onBeforeUnmount(cancel)
         <div class="section-heading"><div><p class="eyebrow">{{ result ? 'YOUR SEARCH AREA' : 'A NEW PERSPECTIVE' }}</p><h2 id="results-title">{{ result ? placeLabel : 'Small radius. Plenty to discover.' }}<span v-if="result" class="zip-badge">{{ result.center.postcode }}</span></h2></div><div class="scope-chip"><span class="radius-mini">◎</span> Within 5 km of the ZIP location</div></div>
         <div class="workspace" :class="{ 'has-results': state === 'results' }">
           <div class="list-panel" ref="list">
-            <template v-if="state === 'results'"><div class="list-summary" role="status"><strong>{{ hotels.length }} hotel{{ hotels.length === 1 ? '' : 's' }}</strong><span>Nearest first</span></div><p class="list-instruction">Pick a place. Find it on the map.</p>
-              <ol class="hotel-list"><li v-for="(hotel, index) in hotels" :key="hotel.place_id"><button class="hotel-card" :class="{ selected: selectedId === hotel.place_id }" :aria-pressed="selectedId === hotel.place_id" @click="selectHotel(hotel.place_id)"><span class="hotel-number">{{ String(index + 1).padStart(2, '0') }}</span><span class="hotel-details"><span class="hotel-category">HOTEL</span><strong>{{ hotel.name || 'Hotel name unavailable' }}</strong><span class="hotel-address">{{ hotel.address || 'Address not supplied' }}</span><span class="hotel-bottom"><span>{{ formatDistance(hotel.distance_meters) }} from ZIP location</span><span class="card-action">{{ selectedId === hotel.place_id ? 'On the map' : 'View on map' }} ↗</span></span></span></button></li></ol>
+            <template v-if="state === 'results'"><div class="list-summary" role="status"><strong>{{ hotels.length }} hotel{{ hotels.length === 1 ? '' : 's' }}</strong><span>{{ resultSourceLabel }}</span></div><p class="list-instruction">Pick a place. Find it on the map.</p>
+              <p v-if="result.source === 'local'" class="local-subset-note">Saved local subset · simulated classroom rates and rooms below.</p>
+              <ol class="hotel-list"><li v-for="(hotel, index) in hotels" :key="hotel.place_id"><article class="hotel-card" :class="{ selected: selectedId === hotel.place_id }"><button class="hotel-select" :aria-pressed="selectedId === hotel.place_id" @click="selectHotel(hotel.place_id)"><span class="hotel-number">{{ String(index + 1).padStart(2, '0') }}</span><span class="hotel-details"><span class="hotel-category">HOTEL</span><strong>{{ hotel.name || 'Hotel name unavailable' }}</strong><span class="hotel-address">{{ hotel.address || 'Address not supplied' }}</span><span class="hotel-bottom"><span>{{ result.source === 'local' ? 'Saved local location' : `${formatDistance(hotel.distance_meters)} from ZIP location` }}</span><span class="card-action">{{ selectedId === hotel.place_id ? 'On the map' : 'View on map' }} ↗</span></span></span></button><div v-if="hotel.saved_locally" class="local-hotel-data"><span class="saved-tag">Saved locally</span><ul><li v-for="night in hotel.demo_nights" :key="night.stay_date"><time :datetime="night.stay_date">{{ night.stay_date }}</time><span>{{ formatCents(night.nightly_rate_cents) }} · {{ night.rooms_available }} rooms</span></li></ul><p>Simulated classroom data.</p></div><div class="hotel-actions"><button v-if="hotel.saved_locally" class="remove-local" :disabled="pendingHotelIds.has(hotel.place_id)" @click="removeHotel(hotel)">{{ pendingHotelIds.has(hotel.place_id) ? 'Removing…' : 'Remove from Local' }}</button><button v-else class="add-local" :disabled="pendingHotelIds.has(hotel.place_id)" @click="saveHotel(hotel)">{{ pendingHotelIds.has(hotel.place_id) ? 'Saving…' : 'Add to Local' }}</button></div></article></li></ol>
             </template>
             <div v-else class="state-card" :class="{ 'error-state': isFailure }" role="status" aria-live="polite"><div class="state-icon" :class="{ rotating: state === 'loading' }" aria-hidden="true">{{ isFailure ? '!' : state === 'empty' ? '○' : '⌖' }}</div><p class="eyebrow">{{ state === 'loading' ? 'SEARCH IN PROGRESS' : isFailure ? 'LET’S TRY THAT AGAIN' : 'THE START OF SOMETHING GOOD' }}</p><h3>{{ stateTitle }}</h3><p>{{ stateDescription }}</p><button v-if="state === 'error'" class="retry-button" @click="search()">Retry search ↗</button><div v-if="state === 'idle'" class="how-it-works"><div><span>01</span> Enter a ZIP</div><div><span>02</span> Explore nearby hotels</div><div><span>03</span> Connect the dots on the map</div></div></div>
           </div>
@@ -64,11 +69,13 @@ onBeforeUnmount(cancel)
             </div>
           </div>
         </div>
+        <p v-if="actionMessage" class="local-action-message" role="status">{{ actionMessage }}</p>
         <div v-if="selectedHotel" class="selection-status" role="status">Selected: <strong>{{ selectedHotel.name || 'Hotel name unavailable' }}</strong> · {{ selectedHotel.latitude.toFixed(5) }}, {{ selectedHotel.longitude.toFixed(5) }}</div>
-        <div v-if="result" class="result-notes"><span>Live data via <a href="https://www.geoapify.com/" target="_blank" rel="noreferrer">Geoapify</a> · checked {{ observationTime }}</span><span>Showing up to {{ result.result_limit }} places · coverage varies<span v-if="result.limit_reached"> · result limit reached</span><span v-if="result.omitted_records"> · {{ result.omitted_records }} unusable record(s) omitted</span></span></div>
-        <div class="discovery-note"><span class="note-icon" aria-hidden="true">i</span><p>A place to start, not a reservation. These are hotel locations; prices, ratings, and room availability aren’t provided.</p><button :aria-expanded="infoOpen" aria-controls="search-explainer" @click="infoOpen = !infoOpen">How search works <span>{{ infoOpen ? '−' : '+' }}</span></button></div><div v-if="infoOpen" id="search-explainer" class="search-explainer">We verify the exact U.S. ZIP with Geoapify, then search for hotels within 5 km of the returned postcode point. The center is not your position or the entire ZIP boundary. Distances are calculated in a straight line. The same hotels appear in both views; moving the map doesn’t change your search. Provider coverage varies, and the first 100 records may not include every hotel. Map imagery: © OpenStreetMap contributors.</div>
+        <div v-if="result" class="result-notes"><span>{{ result.source === 'local' ? 'Local SQLite storage' : 'Live data via Geoapify' }} · checked {{ observationTime }}</span><span v-if="result.source === 'local'">Stored local subset for this ZIP</span><span v-else>Showing up to {{ result.result_limit }} places · coverage varies<span v-if="result.limit_reached"> · result limit reached</span><span v-if="result.omitted_records"> · {{ result.omitted_records }} unusable record(s) omitted</span></span></div>
+        <div class="discovery-note"><span class="note-icon" aria-hidden="true">i</span><p>{{ result?.source === 'local' ? 'These are your saved locations and simulated classroom values, not a complete list or live inventory.' : 'A place to start, not a reservation. These are hotel locations; prices, ratings, and room availability aren’t provided.' }}</p><button :aria-expanded="infoOpen" aria-controls="search-explainer" @click="infoOpen = !infoOpen">How search works <span>{{ infoOpen ? '−' : '+' }}</span></button></div><div v-if="infoOpen" id="search-explainer" class="search-explainer">We check local saved hotels for the exact ZIP first. If none are saved, we verify the ZIP with Geoapify and search for hotels within 5 km of the returned postcode point. The center is not your position or the entire ZIP boundary. Local nightly values and room counts are simulated classroom data. Distances are straight line estimates. The same hotels appear in both views; moving the map doesn’t change your search. Provider coverage varies, and the first 100 records may not include every hotel. Map imagery: © OpenStreetMap contributors.</div>
       </section>
     </main>
+    <HotelChat v-else-if="view === 'chat'" @explore="view = 'explore'" />
     <main v-else class="legacy-page"><div class="legacy-notice"><strong>Assignment 1 · supplied sample data</strong><span>All prices and bookings here are simulations using the course CSV records.</span><button @click="view = 'explore'">← Back to live discovery</button></div><LegacyStays /></main>
     <footer class="site-footer"><span>stayscout.</span><p>A little curiosity goes a long way.</p><span class="footer-tag">MADE FOR THE WAY THERE ↗</span></footer>
   </div>

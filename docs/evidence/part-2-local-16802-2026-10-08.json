@@ -1,0 +1,94 @@
+{
+  "label": "Real Geoapify locations saved through the browser; nightly prices and rooms are simulated course values, not provider facts.",
+  "observed_at": "2026-10-08T19:49:53.099385+00:00",
+  "live_search_observed_count": 21,
+  "local_response": {
+    "source": "local",
+    "center": {
+      "postcode": "16802",
+      "country_code": "us",
+      "latitude": 40.803167822,
+      "longitude": -77.861384958,
+      "locality": "State College"
+    },
+    "hotels": [
+      {
+        "provider": "geoapify",
+        "place_id": "51cb0b40dbbb7753c059106e8d4a02664440f00101f90187b00800000000009203104e697474616e79204c696f6e20496e6e",
+        "name": "Nittany Lion Inn",
+        "address": "Nittany Lion Inn, 200 West Park Avenue, State College, PA 16803, United States of America",
+        "latitude": 40.7969457,
+        "longitude": -77.8705363,
+        "distance_meters": 0,
+        "saved_locally": true,
+        "demo_nights": [
+          {
+            "stay_date": "2026-10-10",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          },
+          {
+            "stay_date": "2026-10-11",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          },
+          {
+            "stay_date": "2026-10-12",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          },
+          {
+            "stay_date": "2026-10-13",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          },
+          {
+            "stay_date": "2026-10-14",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          }
+        ]
+      },
+      {
+        "provider": "geoapify",
+        "place_id": "51268f029ffa7653c05961f07a7ab6654440f00103f9018ef41f2f0200000092031b5363686f6c617220486f74656c20537461746520436f6c6c656765",
+        "name": "Scholar Hotel State College",
+        "address": "Scholar Hotel State College, 205 East Beaver Avenue, State College, PA 16801, United States of America",
+        "latitude": 40.7946313,
+        "longitude": -77.8590467,
+        "distance_meters": 0,
+        "saved_locally": true,
+        "demo_nights": [
+          {
+            "stay_date": "2026-10-10",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          },
+          {
+            "stay_date": "2026-10-11",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          },
+          {
+            "stay_date": "2026-10-12",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          },
+          {
+            "stay_date": "2026-10-13",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          },
+          {
+            "stay_date": "2026-10-14",
+            "nightly_rate_cents": 10000,
+            "rooms_available": 20
+          }
+        ]
+      }
+    ],
+    "count": 2,
+    "radius_meters": 5000,
+    "observed_at": "2026-10-08T19:49:53.100048+00:00"
+  }
+}

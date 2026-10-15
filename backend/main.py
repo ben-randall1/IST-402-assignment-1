@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import csv
 import sqlite3
-from datetime import date
+from datetime import date, datetime, timezone
 from decimal import Decimal
 from pathlib import Path
 from typing import Literal
@@ -11,14 +11,17 @@ from uuid import uuid4
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .config import geoapify_api_key
 from .geoapify import GeoapifyRequestError, GeoapifyRateLimitError, MissingGeoapifyKeyError, ZipNotFoundError, lookup_us_zip, search_hotels
+from .models import ExternalHotel
+from .chat import ChatError, answer_question
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
 DATABASE_PATH = DATA_DIR / "stayscout.db"
+DEMO_STAY_DATES = tuple(f"2026-10-{day:02d}" for day in range(10, 15))
 
 app = FastAPI(title="StayScout API", version="2.0.0")
 app.add_middleware(
@@ -35,8 +38,36 @@ class BookingCreate(BaseModel):
     trip_id: str
 
 
+class ChatQuestion(BaseModel):
+    question: str = Field(min_length=1, max_length=1200)
+
+
+@app.post("/api/chat")
+def hotel_chat(payload: ChatQuestion) -> dict[str, object]:
+    """Generate SQL, check local retrieval, then request a grounded LLM answer."""
+    try:
+        return answer_question(DATABASE_PATH, payload.question)
+    except ChatError as error:
+        headers = {"Retry-After": "60"} if error.status == 429 else None
+        raise HTTPException(status_code=error.status, detail=str(error), headers=headers) from None
+
+
 class BookingStatusUpdate(BaseModel):
     status: Literal["confirmed", "cancelled"]
+
+
+class LocalSearchCenter(BaseModel):
+    postcode: str = Field(pattern=r"^[0-9]{5}$")
+    country_code: Literal["us"]
+    latitude: float = Field(ge=-90, le=90)
+    longitude: float = Field(ge=-180, le=180)
+    locality: str | None = None
+
+
+class LocalHotelSave(BaseModel):
+    hotel: ExternalHotel
+    zip_code: str
+    center: LocalSearchCenter
 
 
 def read_csv(filename: str) -> list[dict[str, str]]:
@@ -91,6 +122,29 @@ def initialize_database() -> None:
                     trip_id TEXT NOT NULL REFERENCES trips(trip_id),
                     booked_on TEXT NOT NULL,
                     status TEXT NOT NULL CHECK(status IN ('confirmed', 'cancelled'))
+                );
+                CREATE TABLE IF NOT EXISTS saved_hotels (
+                    hotel_id TEXT PRIMARY KEY CHECK(length(trim(hotel_id)) > 0),
+                    name TEXT,
+                    address TEXT,
+                    latitude REAL NOT NULL CHECK(latitude >= -90 AND latitude <= 90),
+                    longitude REAL NOT NULL CHECK(longitude >= -180 AND longitude <= 180)
+                );
+                CREATE TABLE IF NOT EXISTS saved_hotel_searches (
+                    hotel_id TEXT NOT NULL REFERENCES saved_hotels(hotel_id) ON DELETE CASCADE,
+                    zip_code TEXT NOT NULL CHECK(length(zip_code) = 5 AND zip_code GLOB '[0-9][0-9][0-9][0-9][0-9]'),
+                    country_code TEXT NOT NULL CHECK(country_code = 'us'),
+                    center_latitude REAL NOT NULL CHECK(center_latitude >= -90 AND center_latitude <= 90),
+                    center_longitude REAL NOT NULL CHECK(center_longitude >= -180 AND center_longitude <= 180),
+                    locality TEXT,
+                    PRIMARY KEY (hotel_id, zip_code)
+                );
+                CREATE TABLE IF NOT EXISTS demo_hotel_nights (
+                    hotel_id TEXT NOT NULL REFERENCES saved_hotels(hotel_id) ON DELETE CASCADE,
+                    stay_date TEXT NOT NULL CHECK(length(stay_date) = 10 AND date(stay_date) IS NOT NULL AND date(stay_date) = stay_date),
+                    nightly_rate_cents INTEGER NOT NULL DEFAULT 10000 CHECK(nightly_rate_cents >= 0),
+                    rooms_available INTEGER NOT NULL DEFAULT 20 CHECK(rooms_available >= 0),
+                    PRIMARY KEY (hotel_id, stay_date)
                 );
                 """
             )
@@ -180,6 +234,82 @@ def location_for_api(zip_code: str) -> dict[str, object]:
         raise HTTPException(status_code=502, detail=str(error)) from error
 
 
+def normalized_zip(zip_code: str) -> str:
+    value = zip_code.strip()
+    if len(value) != 5 or not value.isascii() or not value.isdigit():
+        raise HTTPException(status_code=422, detail="Enter a five-digit U.S. ZIP code.")
+    return value
+
+
+def local_result(zip_code: str) -> dict[str, object]:
+    """Read only the saved subset for an exact ZIP; do not call Geoapify here."""
+    connection = connect()
+    try:
+        rows = connection.execute(
+            """
+            SELECT saved_hotels.hotel_id, saved_hotels.name, saved_hotels.address,
+                   saved_hotels.latitude, saved_hotels.longitude,
+                   saved_hotel_searches.country_code, saved_hotel_searches.center_latitude,
+                   saved_hotel_searches.center_longitude, saved_hotel_searches.locality,
+                   demo_hotel_nights.stay_date, demo_hotel_nights.nightly_rate_cents,
+                   demo_hotel_nights.rooms_available
+            FROM saved_hotel_searches
+            JOIN saved_hotels ON saved_hotels.hotel_id = saved_hotel_searches.hotel_id
+            LEFT JOIN demo_hotel_nights ON demo_hotel_nights.hotel_id = saved_hotels.hotel_id
+            WHERE saved_hotel_searches.zip_code = ?
+            ORDER BY saved_hotels.name COLLATE NOCASE, saved_hotels.hotel_id, demo_hotel_nights.stay_date
+            """,
+            (zip_code,),
+        ).fetchall()
+    except sqlite3.Error as error:
+        raise HTTPException(status_code=500, detail="Local hotel storage could not be read. Please try again.") from error
+    finally:
+        connection.close()
+
+    if not rows:
+        return {"source": "local", "zip_code": zip_code, "count": 0, "hotels": []}
+
+    first = rows[0]
+    center = {
+        "postcode": zip_code,
+        "country_code": first["country_code"],
+        "latitude": first["center_latitude"],
+        "longitude": first["center_longitude"],
+        "locality": first["locality"],
+    }
+    hotels: dict[str, dict[str, object]] = {}
+    for row in rows:
+        hotel_id = row["hotel_id"]
+        if hotel_id not in hotels:
+            hotels[hotel_id] = {
+                "provider": "geoapify",
+                "place_id": hotel_id,
+                "name": row["name"],
+                "address": row["address"],
+                "latitude": row["latitude"],
+                "longitude": row["longitude"],
+                "distance_meters": 0,
+                "saved_locally": True,
+                "demo_nights": [],
+            }
+        if row["stay_date"] is not None:
+            hotels[hotel_id]["demo_nights"].append(
+                {
+                    "stay_date": row["stay_date"],
+                    "nightly_rate_cents": row["nightly_rate_cents"],
+                    "rooms_available": row["rooms_available"],
+                }
+            )
+    return {
+        "source": "local",
+        "center": center,
+        "hotels": list(hotels.values()),
+        "count": len(hotels),
+        "radius_meters": 5000,
+        "observed_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+
 @app.get("/api/demo/zip-location")
 def demo_zip_location() -> dict[str, object]:
     """The fixed ZIP 16802 route used by the in-class demonstration."""
@@ -205,6 +335,80 @@ def hotels_near_zip(zip_code: str = Query(..., pattern=r"^[0-9]{5}$")) -> dict[s
         raise HTTPException(status_code=429, detail=str(error), headers={"Retry-After": "60"}) from error
     except GeoapifyRequestError as error:
         raise HTTPException(status_code=502, detail=str(error)) from error
+
+
+@app.get("/api/local-hotels")
+def saved_hotels_for_zip(zip_code: str = Query(..., pattern=r"^[0-9]{5}$")) -> dict[str, object]:
+    """Return only the local saved subset for the requested ZIP."""
+    return local_result(normalized_zip(zip_code))
+
+
+@app.post("/api/local-hotels", status_code=201)
+def save_local_hotel(payload: LocalHotelSave) -> dict[str, object]:
+    """Save a returned place once, with five non-destructive classroom nights."""
+    zip_code = normalized_zip(payload.zip_code)
+    if payload.center.postcode != zip_code:
+        raise HTTPException(status_code=422, detail="The saved hotel must use the current searched ZIP location.")
+
+    hotel = payload.hotel
+    if not hotel.place_id.strip():
+        raise HTTPException(status_code=422, detail="A provider hotel identifier is required.")
+    connection = connect()
+    try:
+        with connection:
+            connection.execute(
+                """
+                INSERT OR IGNORE INTO saved_hotels (hotel_id, name, address, latitude, longitude)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (hotel.place_id, hotel.name, hotel.address, hotel.latitude, hotel.longitude),
+            )
+            connection.execute(
+                """
+                INSERT OR IGNORE INTO saved_hotel_searches
+                (hotel_id, zip_code, country_code, center_latitude, center_longitude, locality)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    hotel.place_id,
+                    zip_code,
+                    payload.center.country_code,
+                    payload.center.latitude,
+                    payload.center.longitude,
+                    payload.center.locality,
+                ),
+            )
+            connection.executemany(
+                "INSERT OR IGNORE INTO demo_hotel_nights (hotel_id, stay_date) VALUES (?, ?)",
+                [(hotel.place_id, stay_date) for stay_date in DEMO_STAY_DATES],
+            )
+        return {
+            "hotel_id": hotel.place_id,
+            "saved": True,
+            "message": "Hotel saved locally with five simulated nightly records.",
+        }
+    except sqlite3.Error as error:
+        raise HTTPException(status_code=500, detail="Local hotel storage could not save this hotel. Please try again.") from error
+    finally:
+        connection.close()
+
+
+@app.delete("/api/local-hotels/{hotel_id}")
+def remove_local_hotel(hotel_id: str) -> dict[str, str]:
+    """Delete one saved hotel and its dependent classroom records atomically."""
+    if not hotel_id.strip():
+        raise HTTPException(status_code=422, detail="A saved hotel identifier is required.")
+    connection = connect()
+    try:
+        with connection:
+            result = connection.execute("DELETE FROM saved_hotels WHERE hotel_id = ?", (hotel_id,))
+        if result.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Saved hotel not found.")
+        return {"hotel_id": hotel_id, "message": "Hotel and its local classroom records were removed."}
+    except sqlite3.Error as error:
+        raise HTTPException(status_code=500, detail="Local hotel storage could not remove this hotel. Please try again.") from error
+    finally:
+        connection.close()
 
 
 @app.get("/api/stays")

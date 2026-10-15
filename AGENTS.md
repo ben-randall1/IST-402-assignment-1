@@ -11,6 +11,14 @@
 - Controller: FastAPI routes validate request inputs and map domain failures to HTTP responses. `backend/geoapify.py` owns provider requests, U.S. postcode verification, normalization, and credential-safe errors. Frontend composables own request state and shared selection.
 - View: Vue components render state and emit user actions. Leaflet renders the same hotel collection and selected identifier as the list. Escape provider content.
 
+## Assignment 2.2 chatbot
+
+- `backend/chat.py` owns backend-only OpenRouter requests, query rules, SQL authorization and bounded read-only retrieval. Only the three local-storage tables may be read; legacy hotel/trip/user/booking tables remain inaccessible to generated queries.
+- Preserve the two model requests: question/schema/rules → SQL, then question/retrieved records → grounded answer. Do not replace live model calls with fixtures in the normal application.
+- Require a configured free NVIDIA Nemotron model; never silently fall back to a paid model. Keep empty results, rejected SQL, missing configuration and provider failures distinct.
+- Stay comparisons exclude checkout and independently verify all requested nights and room counts. Recalculate totals from stored cents. Prices and availability are simulated course values.
+- `useHotelChat.js` owns request state; `HotelChat.vue` renders escaped answers and evidence. Offline fixtures belong in the explicit `backend.verify_part2` runner with a temporary database and clear mock labels.
+
 ## CHECK → TAKE ACTION → VERIFY
 
 1. CHECK existing code, installed versions, configuration and behavior. Before adding a dependency, explain the exact package and installation command and obtain the student's approval.
@@ -21,3 +29,8 @@
 ## Approved dependency action — 2026-09-29
 
 The student approved `npm install --save-exact leaflet@1.9.4` after the environment check established that Vue/Vite and the required system Python packages were present but Leaflet was missing. No other dependency installation was approved in that exchange.
+
+## Assignment 3 design package
+
+- The new coursework design is in `assignment-3/`; read its `AGENTS.md` and `README.md` before implementation. Part 3.1 is research/design, not a working application. Keep its future database and application separate from hotel records.
+- Use only fictional scenarios and preserve the independent safety/exit and application-controlled skill/timing decisions described there. Do not offer or deploy it as a support service.

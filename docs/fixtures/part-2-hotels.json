@@ -1,0 +1,16 @@
+{
+  "label": "SYNTHETIC TEST FIXTURE. Names, IDs, locations, rates and rooms are not live provider data.",
+  "zip_code": "16802",
+  "center": {"postcode": "16802", "country_code": "us", "latitude": 40.803, "longitude": -77.861, "locality": "State College (fixture)"},
+  "hotels": [
+    {"hotel_id": "fixture-pine", "name": "Pine House (fixture)", "address": "1 Fictional Lane", "latitude": 40.801, "longitude": -77.86, "nights": [["2026-10-10", 9000, 3], ["2026-10-11", 11000, 2], ["2026-10-12", 80000, 0]]},
+    {"hotel_id": "fixture-elm", "name": "Elm Court (fixture)", "address": "2 Fictional Lane", "latitude": 40.802, "longitude": -77.862, "nights": [["2026-10-10", 12000, 2], ["2026-10-11", 12000, 1]]},
+    {"hotel_id": "fixture-missing", "name": "Missing Night (fixture)", "address": null, "latitude": 40.804, "longitude": -77.863, "nights": [["2026-10-10", 1000, 5]]},
+    {"hotel_id": "fixture-soldout", "name": "Sold Out (fixture)", "address": null, "latitude": 40.806, "longitude": -77.864, "nights": [["2026-10-10", 1000, 4], ["2026-10-11", 1000, 0]]}
+  ],
+  "question": "Which saved hotels in ZIP 16802 have a room from October 10 to October 12, 2026, for under $250 total? Compare the total costs.",
+  "stay": {"check_in": "2026-10-10", "check_out": "2026-10-12", "rooms": 1},
+  "sql": "SELECT h.hotel_id, h.name, h.address, SUM(n.nightly_rate_cents) AS total_cost_cents FROM saved_hotels h JOIN demo_hotel_nights n ON n.hotel_id=h.hotel_id WHERE EXISTS (SELECT 1 FROM saved_hotel_searches s WHERE s.hotel_id=h.hotel_id AND s.zip_code='16802') AND n.stay_date>='2026-10-10' AND n.stay_date<'2026-10-12' GROUP BY h.hotel_id HAVING COUNT(DISTINCT n.stay_date)=2 AND MIN(n.rooms_available)>=1 AND SUM(n.nightly_rate_cents)<25000 ORDER BY total_cost_cents,h.hotel_id LIMIT 50",
+  "mock_answer": "Using simulated course data, Pine House (fixture) is the lowest-cost match: $200 total for one room for two nights, October 10–12, 2026, with at least 2 rooms on each night [1]. Elm Court (fixture) costs $240 total and has at least 1 room each night [2]. Pine saves $40. Checkout October 12 is excluded; taxes and fees are not supplied. These are saved local records, not live availability or a reservation.",
+  "expected": {"hotel_ids": ["fixture-pine", "fixture-elm"], "total_cost_cents": [20000, 24000]}
+}

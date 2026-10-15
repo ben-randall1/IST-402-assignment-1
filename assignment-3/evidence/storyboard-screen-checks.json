@@ -1,0 +1,78 @@
+{
+  "label": "Static design walkthrough only; not runtime application verification",
+  "observed_date": "2026-10-15",
+  "screens": [
+    {
+      "screen": "entry",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "ready",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "inhale",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "exhale",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "paused",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "ended",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "stopped",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "chat",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "loading",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "reply",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "error",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    },
+    {
+      "screen": "history",
+      "support": true,
+      "leave": true,
+      "hasHeading": true
+    }
+  ]
+}

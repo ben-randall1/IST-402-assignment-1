@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="800" viewBox="0 0 1120 800">
+<rect width="1120" height="800" fill="#f8f7f2"/><g font-family="Arial" fill="#283e33">
+<text x="48" y="54" font-size="26" font-weight="bold">stayscout.</text><text x="420" y="54" font-size="16">Explore hotels     Ask StayScout     Sample stays</text>
+<path d="M48 78H1072" stroke="#ccd3c5"/><text x="48" y="120" font-size="12">PART 2 • EARLY MOCKUP • OCTOBER 8, 2026 • BEFORE IMPLEMENTATION</text>
+<text x="48" y="176" font-family="Georgia" font-size="42">A better-informed stay.</text>
+<text x="48" y="211" font-size="16">Ask about saved hotels. All rates and rooms are simulated course data.</text>
+<rect x="48" y="242" width="1024" height="138" rx="14" fill="#e9eddf"/><text x="70" y="274" font-size="16">Your question</text><rect x="70" y="290" width="760" height="60" rx="7" fill="#fffefb"/>
+<text x="87" y="325" font-size="15">Which hotels in 16802 cost under $250 for October 10–12, 2026?</text><rect x="850" y="290" width="199" height="60" rx="7" fill="#294d39"/><text x="873" y="325" font-size="16" fill="white">Ask StayScout →</text>
+<rect x="48" y="410" width="635" height="232" rx="14" fill="#fffefb" stroke="#ccd3c5"/><text x="72" y="447" font-size="12">ANSWER • SIMULATED DATA</text><text x="72" y="482" font-family="Georgia" font-size="26">Matching stays and why they fit</text><text x="72" y="516" font-size="15">Hotel, check-in/out, all-night availability, total cost.</text><text x="72" y="550" font-size="15">No match: explain missing dates or changed constraints.</text><text x="72" y="584" font-size="15">Empty local inventory: save a hotel in Explore first.</text>
+<rect x="708" y="410" width="364" height="232" rx="14" fill="#eff1e7"/><text x="731" y="447" font-size="18">How this answer was found</text><text x="731" y="486" font-size="15">1. Question → model-proposed SQL</text><text x="731" y="521" font-size="15">2. Checked, read-only local retrieval</text><text x="731" y="556" font-size="15">3. Records → second model answer</text><text x="731" y="594" font-size="15">Expandable SQL and records</text>
+<text x="48" y="685" font-size="16" font-weight="bold">States and accessibility</text><text x="48" y="720" font-size="15">Loading: busy status + cancel • Failure: clear error + retry • Answer: escaped text and evidence</text><text x="48" y="750" font-size="15">Keyboard form + labeled controls • Mobile: single column • No database writes or bookings from chat</text>
+</g></svg>

@@ -1,0 +1,111 @@
+{
+  "label": "OFFLINE MOCK EVIDENCE \u2014 not live LLM calls",
+  "observed_at": "2026-10-08T19:52:42.240658+00:00",
+  "fixture": "docs/fixtures/part-2-hotels.json",
+  "successful_question": {
+    "question": "Which saved hotels in ZIP 16802 have a room from October 10 to October 12, 2026, for under $250 total? Compare the total costs.",
+    "proposed_sql": "SELECT h.hotel_id, h.name, h.address, SUM(n.nightly_rate_cents) AS total_cost_cents FROM saved_hotels h JOIN demo_hotel_nights n ON n.hotel_id=h.hotel_id WHERE EXISTS (SELECT 1 FROM saved_hotel_searches s WHERE s.hotel_id=h.hotel_id AND s.zip_code='16802') AND n.stay_date>='2026-10-10' AND n.stay_date<'2026-10-12' GROUP BY h.hotel_id HAVING COUNT(DISTINCT n.stay_date)=2 AND MIN(n.rooms_available)>=1 AND SUM(n.nightly_rate_cents)<25000 ORDER BY total_cost_cents,h.hotel_id LIMIT 50",
+    "sql": "SELECT h.hotel_id, h.name, h.address, SUM(n.nightly_rate_cents) AS total_cost_cents FROM saved_hotels h JOIN demo_hotel_nights n ON n.hotel_id=h.hotel_id WHERE EXISTS (SELECT 1 FROM saved_hotel_searches s WHERE s.hotel_id=h.hotel_id AND s.zip_code='16802') AND n.stay_date>='2026-10-10' AND n.stay_date<'2026-10-12' GROUP BY h.hotel_id HAVING COUNT(DISTINCT n.stay_date)=2 AND MIN(n.rooms_available)>=1 AND SUM(n.nightly_rate_cents)<25000 ORDER BY total_cost_cents,h.hotel_id LIMIT 50",
+    "records": [
+      {
+        "hotel_id": "fixture-pine",
+        "name": "Pine House (fixture)",
+        "address": "1 Fictional Lane",
+        "check_in": "2026-10-10",
+        "check_out": "2026-10-12",
+        "rooms": 1,
+        "nights": 2,
+        "total_cost_cents": 20000,
+        "minimum_rooms_available": 2,
+        "nightly_records": [
+          {
+            "stay_date": "2026-10-10",
+            "nightly_rate_cents": 9000,
+            "rooms_available": 3
+          },
+          {
+            "stay_date": "2026-10-11",
+            "nightly_rate_cents": 11000,
+            "rooms_available": 2
+          }
+        ]
+      },
+      {
+        "hotel_id": "fixture-elm",
+        "name": "Elm Court (fixture)",
+        "address": "2 Fictional Lane",
+        "check_in": "2026-10-10",
+        "check_out": "2026-10-12",
+        "rooms": 1,
+        "nights": 2,
+        "total_cost_cents": 24000,
+        "minimum_rooms_available": 1,
+        "nightly_records": [
+          {
+            "stay_date": "2026-10-10",
+            "nightly_rate_cents": 12000,
+            "rooms_available": 2
+          },
+          {
+            "stay_date": "2026-10-11",
+            "nightly_rate_cents": 12000,
+            "rooms_available": 1
+          }
+        ]
+      }
+    ],
+    "truncated": false,
+    "excluded_incomplete_stays": 0,
+    "stay": {
+      "check_in": "2026-10-10",
+      "check_out": "2026-10-12",
+      "rooms": 1,
+      "nights": 2
+    },
+    "answer": "MOCK MODEL RESPONSE \u2014 Using simulated course data, Pine House (fixture) is the lowest-cost match: $200 total for one room for two nights, October 10\u201312, 2026, with at least 2 rooms on each night [1]. Elm Court (fixture) costs $240 total and has at least 1 room each night [2]. Pine saves $40. Checkout October 12 is excluded; taxes and fees are not supplied. These are saved local records, not live availability or a reservation.",
+    "citations": [
+      1,
+      2
+    ],
+    "status": "answer",
+    "model": "MOCK \u2014 deterministic fixture, not a live model",
+    "model_requests": 2,
+    "simulated": true,
+    "observed_at": "2026-10-08T19:52:42.236559+00:00"
+  },
+  "no_match": {
+    "question": "Which hotels have rooms October 20\u201322, 2026?",
+    "proposed_sql": "SELECT h.hotel_id, h.name, h.address, SUM(n.nightly_rate_cents) AS total_cost_cents FROM saved_hotels h JOIN demo_hotel_nights n ON n.hotel_id=h.hotel_id WHERE EXISTS (SELECT 1 FROM saved_hotel_searches s WHERE s.hotel_id=h.hotel_id AND s.zip_code='16802') AND n.stay_date>='2026-10-20' AND n.stay_date<'2026-10-22' GROUP BY h.hotel_id HAVING COUNT(DISTINCT n.stay_date)=2 AND MIN(n.rooms_available)>=1 AND SUM(n.nightly_rate_cents)<25000 ORDER BY total_cost_cents,h.hotel_id LIMIT 50",
+    "sql": "SELECT h.hotel_id, h.name, h.address, SUM(n.nightly_rate_cents) AS total_cost_cents FROM saved_hotels h JOIN demo_hotel_nights n ON n.hotel_id=h.hotel_id WHERE EXISTS (SELECT 1 FROM saved_hotel_searches s WHERE s.hotel_id=h.hotel_id AND s.zip_code='16802') AND n.stay_date>='2026-10-20' AND n.stay_date<'2026-10-22' GROUP BY h.hotel_id HAVING COUNT(DISTINCT n.stay_date)=2 AND MIN(n.rooms_available)>=1 AND SUM(n.nightly_rate_cents)<25000 ORDER BY total_cost_cents,h.hotel_id LIMIT 50",
+    "records": [],
+    "truncated": false,
+    "excluded_incomplete_stays": 0,
+    "stay": {
+      "check_in": "2026-10-20",
+      "check_out": "2026-10-22",
+      "rooms": 1,
+      "nights": 2
+    },
+    "answer": "MOCK MODEL RESPONSE \u2014 No matching local records for October 20\u201322, 2026. The saved simulated nights do not cover this stay. Try October 10\u201312 or save hotels with the requested nights. This does not establish real hotel availability.",
+    "citations": [],
+    "status": "no_matches",
+    "model": "MOCK \u2014 deterministic fixture, not a live model",
+    "model_requests": 2,
+    "simulated": true,
+    "observed_at": "2026-10-08T19:52:42.237963+00:00"
+  },
+  "rejected_query": {
+    "proposed_sql": "DELETE FROM saved_hotels",
+    "status": 422,
+    "response": {
+      "detail": "The proposed query was rejected. Only one read-only hotel SELECT is allowed."
+    },
+    "database_bytes_unchanged": true
+  },
+  "rate_limit": {
+    "status": 429,
+    "response": {
+      "detail": "MOCK: free model usage limit reached."
+    }
+  }
+}
