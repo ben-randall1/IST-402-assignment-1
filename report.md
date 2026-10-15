@@ -8,17 +8,17 @@
 
 **Milestone date:** October 15, 2026
 
-**Status:** The Part 3.1 design package is complete locally. Repository publication and instructor access still need confirmation before upload. A working application, runtime timing measurements and live-model demonstration belong to later milestones and are not claimed here. Nothing has been submitted to Canvas.
+**Status:** The Part 3.1 design package is published in a public repository. Anonymous access to the repository and branch was verified on October 15, 2026. A working application, runtime timing measurements and live-model demonstration belong to later milestones and are not claimed here. Nothing has been submitted to Canvas.
 
 ## 1. Project access and submitted version
 
 Repository: [ben-randall1/IST-402-assignment-1](https://github.com/ben-randall1/IST-402-assignment-1).
 
-Design branch: `codex/assignment-3-part-1`.
+Design branch: [codex/assignment-3-part-1](https://github.com/ben-randall1/IST-402-assignment-1/tree/codex/assignment-3-part-1).
 
-Assessed design checkpoint: `3f99fcf06482c87ea9df8f2d9dfb50e27dd5a688`. This is a local commit; its remote links will become usable only after the branch is pushed and the instructor has access to the private repository.
+Assessed published design checkpoint: [744fca701d4446db1ea0c7f4a9a4565954ce587c](https://github.com/ben-randall1/IST-402-assignment-1/commit/744fca701d4446db1ea0c7f4a9a4565954ce587c). Its file tree exactly matches the reviewed local snapshot. Publication used the connected GitHub account after the saved Git credential was rejected; the original local history is preserved on a local backup branch.
 
-The new project is organized under `assignment-3/`, separate from the existing hotel application. [Project README](assignment-3/README.md) explains the design artifacts and review commands. [Agent guidance](assignment-3/AGENTS.md) records the implementation boundaries. The previous submission report is preserved in [docs/assignment-2-part-2-report.md](docs/assignment-2-part-2-report.md).
+The new project is organized under `assignment-3/`, separate from the existing hotel application. [Project README](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/README.md) explains the design artifacts and review commands. [Agent guidance](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/AGENTS.md) records the implementation boundaries. The previous submission report is preserved in [docs/assignment-2-part-2-report.md](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/docs/assignment-2-part-2-report.md).
 
 Review the static walkthrough locally with no dependency installation or credentials:
 
@@ -35,7 +35,7 @@ A little space supports a short skill that someone deliberately chooses, can lea
 
 This is a coursework prototype for fictional role-play on localhost. It does not diagnose, provide therapy, promise benefit or imply monitoring. It will not be deployed or offered to someone in distress.
 
-[Full research notes](assignment-3/research.md) use the [assignment overview's study summary](https://psu.instructure.com/courses/2484533/pages/assignment-3-overview-mental-health-skills-application) as the primary research source. The reported sample and coded mentions motivate interface decisions; they are not evidence of clinical effectiveness. Additional public sources were inspected for interaction/engineering ideas: [Headspace's short breathing example](https://www.headspace.com/meditation/breathing-exercises), [VA PTSD Coach documentation](https://mobile.va.gov/app/ptsd-coach), [W3C motion guidance](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html), and [MDN elapsed-time documentation](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now). These were documentation reviews, not logged-in app tests or clinical comparisons.
+[Full research notes](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/research.md) use the [assignment overview's study summary](https://psu.instructure.com/courses/2484533/pages/assignment-3-overview-mental-health-skills-application) as the primary research source. The reported sample and coded mentions motivate interface decisions; they are not evidence of clinical effectiveness. Additional public sources were inspected for interaction/engineering ideas: [Headspace's short breathing example](https://www.headspace.com/meditation/breathing-exercises), [VA PTSD Coach documentation](https://mobile.va.gov/app/ptsd-coach), [W3C motion guidance](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html), and [MDN elapsed-time documentation](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now). These were documentation reviews, not logged-in app tests or clinical comparisons.
 
 | Findings | Decision and tradeoff |
 | --- | --- |
@@ -48,14 +48,14 @@ This is a coursework prototype for fictional role-play on localhost. It does not
 | D5: low-burden personalization | One optional “Use this as my usual” action, transparent source, override and clear controls. No hidden inference that completion means benefit. |
 | D6: low-stimulus, neutral presentation | Quiet colors, restrained copy, no compulsory sound, static pacing alternative. Motion removal preserves phase/count information. |
 
-[The design rationale](assignment-3/design.md) provides individual R1–R4/D1–D6 decisions, alternatives and proposed checks. The first design revision replaced inferred distress adaptation with explicit simplification, and narrowed open-ended model-generated support to reviewed orientation choices.
+[The design rationale](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/design.md) provides individual R1–R4/D1–D6 decisions, alternatives and proposed checks. The first design revision replaced inferred distress adaptation with explicit simplification, and narrowed open-ended model-generated support to reviewed orientation choices.
 
 ## 3. Early sketch and flow
 
-- [Annotated six-screen storyboard](assignment-3/storyboard.svg).
-- [Clickable design walkthrough](assignment-3/prototype.html).
-- [Main flow diagram and screen contracts](assignment-3/design.md#main-experience).
-- [Entry screenshot](assignment-3/evidence/design-entry.png), [single-phase sketch](assignment-3/evidence/design-skill.png), [support panel](assignment-3/evidence/design-support.png), and [phone layout](assignment-3/evidence/design-mobile.png).
+- [Annotated six-screen storyboard](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/storyboard.svg).
+- [Clickable design walkthrough](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/prototype.html).
+- [Main flow diagram and screen contracts](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/design.md#main-experience).
+- [Entry screenshot](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/design-entry.png), [single-phase sketch](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/design-skill.png), [support panel](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/design-support.png), and [phone layout](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/design-mobile.png).
 
 The main path is **choose → ready → explicitly start → six local breathing rounds → neutral ending**. Optional chat can be skipped, and model failure leaves the fixed practice available. Stop leads directly to a neutral exit. Support access during a skill pauses it; returning never automatically resumes. History is separate from the active exercise.
 
@@ -65,7 +65,7 @@ The storyboard was prepared before application implementation. Its reviewer sele
 
 ## 4. Model role, persistence and safety plan
 
-[Technical design](assignment-3/technical-design.md) specifies the proposed model contract, context, routes, resource copy, failure handling and timer plan. [Proposed SQLite schema](assignment-3/schema.sql) is an isolated schema experiment.
+[Technical design](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/technical-design.md) specifies the proposed model contract, context, routes, resource copy, failure handling and timer plan. [Proposed SQLite schema](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/schema.sql) is an isolated schema experiment.
 
 The model interprets an optional fictional message using fixed enabled-skill context, the last four messages from the current session and an explicit usual-skill preference. It returns a reviewed `response_id` and optional enabled skill ID. The application renders the corresponding approved wording. For example, a question about counts selects `explain_breathing`. This adds natural-language intent handling while keeping therapeutic content bounded. Arbitrary advice, unknown responses, new steps and automatic routing are rejected. A limitation is reduced conversational range; unsupported requests receive a scope response. Live testing must establish whether this contribution is useful.
 
@@ -79,7 +79,7 @@ Reuse is limited to architecture and verification patterns from the hotel projec
 
 ## 5. Verification and unresolved questions
 
-[Observed design checks](assignment-3/evidence/design-checks.txt), [browser review](assignment-3/evidence/browser-review.md), [12-screen visibility checks](assignment-3/evidence/storyboard-screen-checks.json), and [support-opening checks](assignment-3/evidence/storyboard-support-checks.json) are the current evidence.
+[Observed design checks](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/design-checks.txt), [browser review](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/browser-review.md), [12-screen visibility checks](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/storyboard-screen-checks.json), and [support-opening checks](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/storyboard-support-checks.json) are the current evidence.
 
 | Check | Expected | Observed October 15 |
 | --- | --- | --- |
@@ -95,10 +95,10 @@ The first document check found the browser-review file had not yet been written;
 
 Open questions concern no-motion pacing clarity, optional-message latency, wording of the usual-skill offer, false positives/misses in the conservative crisis rule, current model availability, and whether STOP should wait until the core flow passes. Parts 3.2/3.3 must resolve them through actual implementation evidence.
 
-[Evaluation plan](assignment-3/verification.md) contains fifteen fictional scenarios and three cross-case behavior checks: independent support/exit, application-controlled timing/sequence, and explicit reviewable memory. They are **planned, not observed runtime passes**. Later work must add measured timing, browser/DB evidence, limited live-model variation, clean-checkout checks and the required finished-demo/failure-analysis recordings. A working app or recorded runtime demo is not required by Part 3.1.
+[Evaluation plan](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/verification.md) contains fifteen fictional scenarios and three cross-case behavior checks: independent support/exit, application-controlled timing/sequence, and explicit reviewable memory. They are **planned, not observed runtime passes**. Later work must add measured timing, browser/DB evidence, limited live-model variation, clean-checkout checks and the required finished-demo/failure-analysis recordings. A working app or recorded runtime demo is not required by Part 3.1.
 
 ## 6. AI disclosure and submission status
 
-[AI-USE.md](AI-USE.md) names OpenAI Codex desktop, the GPT-6 family agent (exact runtime identifier unavailable), its roles and prior-session evidence boundaries. No subagents or live application model were used. [Curated evidence log](assignment-3/evidence/process.md) connects selected prompts, revised approaches, artifacts and checks; it contains no credentials, participant records or real distress disclosures.
+[AI-USE.md](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/AI-USE.md) names OpenAI Codex desktop, the GPT-6 family agent (exact runtime identifier unavailable), its roles and prior-session evidence boundaries. No subagents or live application model were used. [Curated evidence log](https://github.com/ben-randall1/IST-402-assignment-1/blob/744fca701d4446db1ea0c7f4a9a4565954ce587c/assignment-3/evidence/process.md) connects selected prompts, revised approaches, artifacts and checks; it contains no credentials, participant records or real distress disclosures.
 
-Part 3.1 is complete locally as a research/design milestone. Before Canvas upload, review the proposal, publish this branch to the private repository and confirm instructor access. Relative artifact links resolve in the repository once published; the assessed design commit identifies the reviewed package. No deployment, clinical test, paid API call or Part 3.2 implementation is required to finish this milestone.
+Part 3.1 is complete and publicly published as a research/design milestone. Before Canvas upload, review the proposal. Artifact links below are absolute URLs pinned to the assessed public design commit so they also work from this standalone report. Repository visibility and branch access were verified with an anonymous GitHub API request. No deployment, clinical test, paid API call or Part 3.2 implementation is required to finish this milestone.

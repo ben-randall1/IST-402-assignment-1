@@ -6,7 +6,7 @@ The student's next-part request points to Canvas Assignment 3.1 (18506998), due 
 
 Created the separate `assignment-3/` design package for **A little space**: paced breathing first (6 × 4-second inhale + 6-second exhale), optional STOP later. The optional preference question received no answer during this work; the name/skill remain the agent's stated proposal, not an asserted student preference.
 
-Branch: `codex/assignment-3-part-1`. Assessed design checkpoint: `3f99fcf06482c87ea9df8f2d9dfb50e27dd5a688`. Root `report.md` is the new Part 3.1 report. Previous Assignment 2 report/handoff preserved in `docs/assignment-2-part-2-report.md` and `handoffs/assignment-2-part-2.md`. Existing Vue/FastAPI hotel runtime is unchanged.
+Branch: `codex/assignment-3-part-1`. Assessed published design checkpoint: `744fca701d4446db1ea0c7f4a9a4565954ce587c`. The connected GitHub publication has exactly the same tree (`b3d38800af704cea48a20831883440d0d8114421`) as the reviewed local snapshot; original local commits are preserved on `codex/assignment-3-local-history`. Root `report.md` is the new Part 3.1 report. Previous Assignment 2 report/handoff preserved in `docs/assignment-2-part-2-report.md` and `handoffs/assignment-2-part-2.md`. Existing Vue/FastAPI hotel runtime is unchanged.
 
 ## Artifacts and decisions
 
@@ -28,9 +28,11 @@ No new dependency installed. Installed Python/Vue/backend versions inspected and
 
 ## Next actions
 
-1. Student reviews the design and name/skill choice. Publish the concrete Part 3.1 design branch only with authorization covering this branch and confirm instructor access to the private repository; earlier publication approval covered Assignment 2.1 specifically. No remote push or Canvas submission performed in this session.
-2. Upload root report.md to Assignment 3.1 only after accessible links are confirmed. It already identifies the assessed local design checkpoint and distinguishes planned/observed evidence.
+1. Student explicitly approved publishing this branch, then requested a public repository. The connected GitHub account published it after the saved Git credential failed. GitHub already reported public visibility; an anonymous API check confirmed public repository/branch access. No visibility change was needed and nothing has been submitted to Canvas. Student reviews the proposed name/skill choice.
+2. Root report.md now identifies the assessed public design commit and uses absolute artifact URLs suitable for standalone Canvas upload. Public access is verified; student review/upload remain. Planned/observed evidence is still distinguished.
 3. For Part 3.2, follow assignment-3/README.md and AGENTS.md. Keep future frontend/backend/SQLite separate from hotel data. Do environment/approval checks before installing anything. Implement and verify the full breathing path before extending STOP.
 4. Part 3.3 plan already includes 15 fictional scenarios and three invariants, but no future runtime/live-model result has been claimed.
 
 Static design server: `python3 -m http.server 5184 --bind 127.0.0.1 --directory assignment-3`. Preview at http://127.0.0.1:5184/prototype.html. No runtime skills, provider requests or persistence in that page. The preview tab is retained for review.
+
+Publication details are in `assignment-3/evidence/publication.md`. No credentials were copied from the connector or written to Git configuration. Future CLI pushes need working authentication; the read-only anonymous fetch works.

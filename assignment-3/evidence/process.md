@@ -30,3 +30,7 @@ The working tree was clean at start on `codex/assignment-2-part-2`, commit `7ee6
 The script `check_design.py` and its [output](design-checks.txt) establish document/link coherence, SVG validity, schema constraints, reopening/cascades and timing arithmetic in isolation. [Browser review](browser-review.md) records observed storyboard behavior and screenshots. They do not establish the future Vue/FastAPI runtime, therapeutic safety or clinical effectiveness.
 
 The prototype's “mocked model” screens have no provider call; its history is a fixed fictional fixture in page memory. Resource buttons are inert, and no crisis service is contacted. Later live model checks must be recorded separately.
+
+## Authorized publication
+
+The student approved pushing the Part 3.1 branch and then explicitly requested public repository access. The saved Git credential was rejected; the connected GitHub account published an exact file-tree snapshot instead. GitHub already marked the repository public, and anonymous API verification confirmed access. See [publication evidence](publication.md). No Canvas submission or application deployment was performed.
