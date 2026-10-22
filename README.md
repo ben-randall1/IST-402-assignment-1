@@ -1,3 +1,5 @@
+> **Assignment 3.2:** The separate fictional coursework prototype is in [assignment-3/](assignment-3/README.md), with [implementation notes](assignment-3/implementation.md) and [verification evidence](assignment-3/evidence/part-3-2/README.md). The hotel application's commands and data below remain separate.
+
 > **Assignment 3.1 — Research and Design:** see [A little space](assignment-3/README.md) and the current [submission report](report.md). The StayScout application and startup instructions below remain the Assignment 2 project. Its prior report is [archived here](docs/assignment-2-part-2-report.md).
 
 # StayScout · Assignment 2.2

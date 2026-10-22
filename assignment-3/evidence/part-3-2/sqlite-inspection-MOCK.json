@@ -1,0 +1,31 @@
+{
+  "evidence_kind": "Direct SQLite inspection, temporary MOCK database",
+  "date": "2026-10-22",
+  "tables": [
+    "skills",
+    "sessions",
+    "messages",
+    "preferences",
+    "message_attempts"
+  ],
+  "sessions": [
+    {
+      "session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+      "status": "completed",
+      "active_ms": 60004,
+      "paused_ms": 0,
+      "replay_ms": 0,
+      "message_count": 2
+    }
+  ],
+  "preferences": [
+    {
+      "singleton": 1,
+      "usual_skill_id": "breathing-4-6",
+      "usual_skill_version": 1,
+      "source_session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+      "chosen_at": "2026-10-22T17:22:00.789255+00:00"
+    }
+  ],
+  "foreign_key_check": []
+}

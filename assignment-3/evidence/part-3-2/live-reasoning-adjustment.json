@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-22",
+  "evidence_kind": "Actual provider call after explicit reasoning-disable change; no raw provider content",
+  "reasoning_enabled": false,
+  "max_tokens": 512,
+  "http_status": 200,
+  "finish_reason": "stop",
+  "content_characters": 75,
+  "usage": {
+    "prompt_tokens": 490,
+    "completion_tokens": 30,
+    "total_tokens": 520,
+    "cost": 0,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0,
+      "upstream_inference_prompt_cost": 0,
+      "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "validated_proposal": {
+    "response_id": "explain_breathing",
+    "suggested_skill_id": "breathing-4-6"
+  },
+  "model": "nvidia/nemotron-3.5-lightning:free"
+}

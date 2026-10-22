@@ -1,38 +1,13 @@
-# Assignment 3.1 handoff — October 15, 2026
+# Assignment 3.2 working application handoff · October 22, 2026
 
-## Scope and current state
+Branch: `codex/assignment-3-part-2`, based on prior public checkpoint `93183f529cde20b75bac9d5b4f8169dd207f5382`. The prior submission notes are preserved in `handoffs/assignment-3-part-1.md`; its report is archived at `assignment-3/report-3.1.md`.
 
-The student's next-part request points to Canvas Assignment 3.1 (18506998), due October 15 at 11:59 PM Eastern. Read the overview at https://psu.instructure.com/courses/2484533/pages/assignment-3-overview-mental-health-skills-application. This milestone is Research and Design; no working app is required. Parts 3.2 and 3.3 are due October 22/29.
+Implemented a separate Vue/FastAPI/SQLite prototype in `assignment-3/`. One fixed six-round 4–6 skill, independent bundled support/leave, explicit simpler view/still cue, optional reviewed-ID model orientation, bounded current-session context, optimistic revisions and idempotent attempt records, actual timing checkpoints, transcript history, explicit usual choice and cascade deletion. Hotel runtime untouched. No dependency installation. Root `.env` remains ignored; SQLite ignored.
 
-Created the separate `assignment-3/` design package for **A little space**: paced breathing first (6 × 4-second inhale + 6-second exhale), optional STOP later. The optional preference question received no answer during this work; the name/skill remain the agent's stated proposal, not an asserted student preference.
+Observed: 13 new backend tests, seven frontend timer/request tests, new Vue build pass; 45 prior backend tests, 14 prior frontend tests and prior Vue build pass. Browser completed a full mock-mode exercise in 60,003 ms displayed-sequence / 60,004 ms active time, zero pauses, with 13,389 ms choice/setup. Reload/history and direct SQLite inspection confirm records; mock 429, deterministic crisis bypass, pause/support, keyboard/narrow screen, and support/leave with API stopped observed. Evidence is in `assignment-3/evidence/part-3-2/`.
 
-Branch: `codex/assignment-3-part-1`. Assessed published design checkpoint: `744fca701d4446db1ea0c7f4a9a4565954ce587c`. The connected GitHub publication has exactly the same tree (`b3d38800af704cea48a20831883440d0d8114421`) as the reviewed local snapshot; original local commits are preserved on `codex/assignment-3-local-history`. Root `report.md` is the new Part 3.1 report. Previous Assignment 2 report/handoff preserved in `docs/assignment-2-part-2-report.md` and `handoffs/assignment-2-part-2.md`. Existing Vue/FastAPI hotel runtime is unchanged.
+Live verification is now complete: the student replaced the placeholder with a valid key (authentication 200). 3 Super returned provider 404; explicitly selected catalog-listed free `nvidia/nemotron-3.5-lightning:free`, no paid fallback. First Lightning output failed validation; disabling optional reasoning / bounding output to 512 tokens produced a validated response with reported zero cost. Two actual production UI turns selected explain_breathing and different_choice; reload and SQLite inspection showed four ordered messages, two successful attempts and actual model IDs. Eight generation attempts total across review, below 50. Failure and success artifacts remain separate. Credentials never printed; no account policy changed.
 
-## Artifacts and decisions
+Final production browser run: 60,005 ms displayed sequence / 60,003 ms active, zero pause/replay, 364 ms choice/setup. Normal API restart and active browser reload confirmed retained history and interrupted 102 ms checkpoint without resume. New/revised markdown links resolve, credential-value scan found no matches in changed files, .env/SQLite ignore rules verified.
 
-- `assignment-3/README.md`, scoped AGENTS, research notes, design rationale/flow, annotated SVG storyboard, static clickable screen walkthrough, technical/model/data contracts, proposed SQLite schema, verification plan and evidence.
-- Every R1–R4/D1–D6 finding mapped to a concrete decision, tradeoff and planned check.
-- Simplification is chosen explicitly; no distress inference. Timing/steps and persistent crisis/exit controls belong to the application, not the model.
-- Model selects reviewed orientation IDs using bounded current-session context and an explicit preference; no invented therapeutic advice or generated SQL. Live model contribution is future work, with no credentials configured today.
-- One optional usual-skill action; no auto-start, streaks, benefit scores or mandatory disclosure. History/transcript and deletion are explicit.
-- Fictional-scenario localhost coursework only. Do not offer/deploy as a mental-health support service. Verified U.S. contact information is in technical-design.md; preview actions are inert and no service was contacted.
-- `AI-USE.md` records GPT-6 family and unavailable exact identifier; no subagents. Selected revised approaches documented.
-
-## Verified October 15
-
-`python3 assignment-3/check_design.py` passed document links, SVG validity, study-code mapping, absence of network/persistence in the walkthrough, 60-second schedule arithmetic, and isolated proposed-schema constraints/persistence/cascades. Output in assignment-3/evidence/design-checks.txt. First run caught the not-yet-written browser-review artifact; final checks passed after it was added with actual observations.
-
-Browser: support and leave visible across all 12 static screens; support panel opened from each; support during inhale then Escape returned paused; keyboard Start worked; user-selected simplification and usual offer did not auto-start; 390×844 viewport had no horizontal overflow. Screenshots and JSON checks saved. Shared header made sticky during design review. This is storyboard behavior, not the future app's runtime, measured timing, clinical effectiveness, model or session UI.
-
-No new dependency installed. Installed Python/Vue/backend versions inspected and recorded in evidence/process.md. No Vue build or backend rerun for untouched runtime source; no live ZIP retest relevant to this new design. Prior Assignment 2 verification remains separately dated October 8.
-
-## Next actions
-
-1. Student explicitly approved publishing this branch, then requested a public repository. The connected GitHub account published it after the saved Git credential failed. GitHub already reported public visibility; an anonymous API check confirmed public repository/branch access. No visibility change was needed and nothing has been submitted to Canvas. Student reviews the proposed name/skill choice.
-2. Root report.md now identifies the assessed public design commit and uses absolute artifact URLs suitable for standalone Canvas upload. Public access is verified; student review/upload remain. Planned/observed evidence is still distinguished.
-3. For Part 3.2, follow assignment-3/README.md and AGENTS.md. Keep future frontend/backend/SQLite separate from hotel data. Do environment/approval checks before installing anything. Implement and verify the full breathing path before extending STOP.
-4. Part 3.3 plan already includes 15 fictional scenarios and three invariants, but no future runtime/live-model result has been claimed.
-
-Static design server: `python3 -m http.server 5184 --bind 127.0.0.1 --directory assignment-3`. Preview at http://127.0.0.1:5184/prototype.html. No runtime skills, provider requests or persistence in that page. The preview tab is retained for review.
-
-Publication details are in `assignment-3/evidence/publication.md`. No credentials were copied from the connector or written to Git configuration. Future CLI pushes need working authentication; the read-only anonymous fetch works.
+Current processes: production preview at 127.0.0.1:5174 and normal API at 127.0.0.1:8001; both use the latest source/build. The disposable fixture server was stopped. Configuration reads ignored root `.env` per request.

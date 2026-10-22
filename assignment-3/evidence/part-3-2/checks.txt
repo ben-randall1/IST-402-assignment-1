@@ -1,0 +1,55 @@
+Assignment 3.2 — October 22, 2026
+Curated summary of executed commands (not planned checks).
+All automated provider responses were mocks; SQLite tests used temporary databases.
+
+python3 -m unittest discover -s assignment-3/backend -p 'test_*.py' -v
+  Ran 13 tests in 0.303s — OK (after reasoning parameter and placeholder validation changes).
+
+npm test --prefix assignment-3/frontend
+  tests 7, pass 7, fail 0 (51.258334 ms).
+  Four monotonic-clock cases and three request failure/cancellation cases.
+
+npm run build --prefix assignment-3/frontend
+  Vite 7.3.6, 16 modules transformed, success in 481ms.
+  dist/index.html 0.42 kB
+  dist/assets/index-B1hfmxRQ.css 5.37 kB
+  dist/assets/index-DCtFyWG8.js 204.50 kB
+  Build output is ignored; source and lockfile reuse instructions are committed.
+
+python3 -m unittest discover -s backend -p 'test_*.py'
+  Prior hotel backend: Ran 45 tests in 0.217s — OK.
+
+npm test --prefix frontend
+  Prior hotel frontend: tests 14, pass 14, fail 0.
+
+npm run build --prefix frontend
+  Prior hotel Vue production build: 24 modules transformed, success in 733ms.
+
+Browser checks: see README.md and actual JSON/screenshots in this directory.
+Mock browser exercise observed first cue -> final DOM at 60,003 ms;
+active clock 60,004 ms, pause/replay 0, choice/setup 13,389 ms.
+Actual SQLite inspection: five isolated coursework tables; no hotel tables;
+completed session with two ordered fictional messages and explicit usual preference;
+PRAGMA foreign_key_check returned no rows.
+
+Normal API restart preserved the failed request and session. Active browser reload
+returned home and stored an interrupted checkpoint (102 ms, never auto-resumed).
+Production bundle was served with npm run preview on localhost:5174.
+
+No dependency installation, deployment, real participant test, crisis contact
+activation, fresh ZIP-provider observation, or clinical effectiveness test occurred.
+
+Final production-bundle run after revisions: observed sequence 60,005 ms;
+active 60,003 ms; zero pause/replay; choice/setup 364 ms. Saved SQLite
+measurement matches the displayed DOM data attributes.
+
+Documentation/static checks: python3 assignment-3/check_design.py passed
+(archived design/schema scope only). New/changed markdown local links resolve.
+Credential-value scan found no matches in changed files; .env and SQLite
+ignore rules verified. Git whitespace check passed after report formatting fix.
+
+Actual live checks completed: see live-reasoning-adjustment.json and
+live-sqlite-session.json plus live UI/reloaded-history screenshots. Two UI
+turns succeeded with free Nemotron 3.5 Lightning, exact validated IDs, four
+ordered messages, two successful attempts, actual model IDs. Eight total
+generation attempts including failures/diagnostics; no paid fallback.

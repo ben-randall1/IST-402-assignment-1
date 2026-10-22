@@ -1,0 +1,134 @@
+{
+  "evidence_kind": "Fictional MOCK records before disposable server shutdown",
+  "date": "2026-10-22",
+  "sessions": [
+    {
+      "session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+      "skill_id": "breathing-4-6",
+      "skill_version": 1,
+      "started_at": "2026-10-22T17:19:59.066513+00:00",
+      "ended_at": "2026-10-22T17:21:12.461110+00:00",
+      "status": "completed",
+      "active_ms": 60004,
+      "paused_ms": 0,
+      "replay_ms": 0,
+      "progress_json": "{\"planned_ms\": 60000, \"phase\": \"exhale\", \"round\": 6, \"trace\": [{\"event\": \"start\", \"at_ms\": 0, \"planned_ms\": 0}, {\"event\": \"inhale\", \"round\": 1, \"at_ms\": 0.09999996423721313, \"planned_ms\": 0.09999996423721313}, {\"event\": \"exhale\", \"round\": 1, \"at_ms\": 4003.2999999523163, \"planned_ms\": 4003.2999999523163}, {\"event\": \"inhale\", \"round\": 2, \"at_ms\": 10003.399999976158, \"planned_ms\": 10003.399999976158}, {\"event\": \"exhale\", \"round\": 2, \"at_ms\": 14003.599999964237, \"planned_ms\": 14003.599999964237}, {\"event\": \"inhale\", \"round\": 3, \"at_ms\": 20004.299999952316, \"planned_ms\": 20004.299999952316}, {\"event\": \"exhale\", \"round\": 3, \"at_ms\": 24004.19999998808, \"planned_ms\": 24004.19999998808}, {\"event\": \"inhale\", \"round\": 4, \"at_ms\": 30003.399999976158, \"planned_ms\": 30003.399999976158}, {\"event\": \"exhale\", \"round\": 4, \"at_ms\": 34004.89999997616, \"planned_ms\": 34004.89999997616}, {\"event\": \"inhale\", \"round\": 5, \"at_ms\": 40003.799999952316, \"planned_ms\": 40003.799999952316}, {\"event\": \"exhale\", \"round\": 5, \"at_ms\": 44004.5, \"planned_ms\": 44004.5}, {\"event\": \"inhale\", \"round\": 6, \"at_ms\": 50004.39999997616, \"planned_ms\": 50004.39999997616}, {\"event\": \"exhale\", \"round\": 6, \"at_ms\": 54005.09999996424, \"planned_ms\": 54005.09999996424}, {\"event\": \"sequence_ended\", \"at_ms\": 60004.299999952316, \"planned_ms\": 60000}], \"measurement\": {\"first_cue_at\": 19428.80000001192, \"final_step_at\": 79431.90000003576, \"setup_ms\": 13389, \"observed_sequence_ms\": 60003, \"active_ms\": 60004, \"paused_ms\": 0, \"replay_ms\": 0, \"planned_ms\": 60000}}",
+      "revision": 16
+    },
+    {
+      "session_id": "abd71e0b-f1fb-4935-be92-fe3bcb78619d",
+      "skill_id": "breathing-4-6",
+      "skill_version": 1,
+      "started_at": "2026-10-22T17:22:22.566802+00:00",
+      "ended_at": "2026-10-22T17:22:51.001885+00:00",
+      "status": "interrupted",
+      "active_ms": 0,
+      "paused_ms": 0,
+      "replay_ms": 0,
+      "progress_json": "{\"interruption\": \"browser reload; last checkpoint only\"}",
+      "revision": 4
+    },
+    {
+      "session_id": "30e06c37-bfe1-46da-84df-4b58a339f0df",
+      "skill_id": "breathing-4-6",
+      "skill_version": 1,
+      "started_at": "2026-10-22T17:22:55.407920+00:00",
+      "ended_at": null,
+      "status": "paused",
+      "active_ms": 4432,
+      "paused_ms": 0,
+      "replay_ms": 0,
+      "progress_json": "{\"planned_ms\": 4432, \"phase\": \"exhale\", \"round\": 1, \"trace\": [{\"event\": \"start\", \"at_ms\": 0, \"planned_ms\": 0}, {\"event\": \"inhale\", \"round\": 1, \"at_ms\": 0, \"planned_ms\": 0}, {\"event\": \"exhale\", \"round\": 1, \"at_ms\": 4002.5, \"planned_ms\": 4002.5}, {\"event\": \"pause\", \"reason\": \"crisis information opened\", \"at_ms\": 4432.399999976158, \"planned_ms\": 4432.399999976158}], \"measurement\": {\"first_cue_at\": 1052.9000000357628, \"setup_ms\": 948}}",
+      "revision": 4
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "3fd25304-fd95-47fb-9762-263c4c396c22",
+      "session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+      "sequence": 0,
+      "role": "user",
+      "content": "Fictional: what do the counts mean?",
+      "source": "user",
+      "model_id": null,
+      "response_code": null,
+      "created_at": "2026-10-22T17:20:07.946778+00:00"
+    },
+    {
+      "message_id": "2037d405-8564-58e3-94ae-6e1c4470ab49",
+      "session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+      "sequence": 1,
+      "role": "assistant",
+      "content": "[MOCK RESPONSE] This practice uses four counts in and six counts out, for six rounds. The screen carries the pace. You can stop at any point.",
+      "source": "fallback",
+      "model_id": null,
+      "response_code": "explain_breathing",
+      "created_at": "2026-10-22T17:20:07.947975+00:00"
+    },
+    {
+      "message_id": "8a04821d-bf9e-4b16-8d1b-433c4970f350",
+      "session_id": "abd71e0b-f1fb-4935-be92-fe3bcb78619d",
+      "sequence": 0,
+      "role": "user",
+      "content": "Fictional: mock rate limit",
+      "source": "user",
+      "model_id": null,
+      "response_code": null,
+      "created_at": "2026-10-22T17:22:22.868180+00:00"
+    },
+    {
+      "message_id": "03317fc7-cf54-42cc-948e-8e2700d8a503",
+      "session_id": "abd71e0b-f1fb-4935-be92-fe3bcb78619d",
+      "sequence": 1,
+      "role": "user",
+      "content": "Fictional scenario: I may hurt myself tonight.",
+      "source": "user",
+      "model_id": null,
+      "response_code": null,
+      "created_at": "2026-10-22T17:22:28.082751+00:00"
+    },
+    {
+      "message_id": "7dd33548-90e1-5119-8711-bf3c587f1dcd",
+      "session_id": "abd71e0b-f1fb-4935-be92-fe3bcb78619d",
+      "sequence": 2,
+      "role": "assistant",
+      "content": "Crisis-support information is available here. This coursework prototype is not monitored and cannot contact services for you. You may open the information, leave, or choose another screen.",
+      "source": "fallback",
+      "model_id": null,
+      "response_code": "crisis",
+      "created_at": "2026-10-22T17:22:28.084034+00:00"
+    }
+  ],
+  "preferences": [
+    {
+      "singleton": 1,
+      "usual_skill_id": "breathing-4-6",
+      "usual_skill_version": 1,
+      "source_session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+      "chosen_at": "2026-10-22T17:22:00.789255+00:00"
+    }
+  ],
+  "message_attempts": [
+    {
+      "user_message_id": "3fd25304-fd95-47fb-9762-263c4c396c22",
+      "status": "succeeded",
+      "error_status": null,
+      "response_id": "explain_breathing",
+      "suggested_skill_id": "breathing-4-6"
+    },
+    {
+      "user_message_id": "8a04821d-bf9e-4b16-8d1b-433c4970f350",
+      "status": "failed",
+      "error_status": 429,
+      "response_id": null,
+      "suggested_skill_id": null
+    },
+    {
+      "user_message_id": "03317fc7-cf54-42cc-948e-8e2700d8a503",
+      "status": "succeeded",
+      "error_status": null,
+      "response_id": "crisis",
+      "suggested_skill_id": null
+    }
+  ]
+}

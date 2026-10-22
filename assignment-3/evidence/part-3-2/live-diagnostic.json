@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-22",
+  "evidence_kind": "Actual provider request; sanitized status/categories only, no key or raw body",
+  "http_status": 404,
+  "error_code": 404,
+  "categories": [],
+  "safe_error": "The model or credential is unavailable. Check backend configuration; the fixed practice still works.",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free"
+}

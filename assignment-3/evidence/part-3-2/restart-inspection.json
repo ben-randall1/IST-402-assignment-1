@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-22",
+  "evidence_kind": "Normal SQLite after API restart and active browser reload; rejected placeholder-key request is not model success",
+  "sessions": [
+    {
+      "session_id": "d645bfc2-1dd3-4579-97a3-dc83459c058c",
+      "skill_id": "breathing-4-6",
+      "skill_version": 1,
+      "started_at": "2026-10-22T17:25:07.289871+00:00",
+      "ended_at": "2026-10-22T17:30:53.351119+00:00",
+      "status": "interrupted",
+      "active_ms": 0,
+      "paused_ms": 0,
+      "replay_ms": 0,
+      "progress_json": "{\"interruption\": \"browser reload; last checkpoint only\"}",
+      "revision": 2
+    },
+    {
+      "session_id": "30dd7b7b-a9c6-4dc6-aaeb-1afaab8eeb9a",
+      "skill_id": "breathing-4-6",
+      "skill_version": 1,
+      "started_at": "2026-10-22T17:31:49.666491+00:00",
+      "ended_at": "2026-10-22T17:31:50.439871+00:00",
+      "status": "interrupted",
+      "active_ms": 102,
+      "paused_ms": 0,
+      "replay_ms": 0,
+      "progress_json": "{\"planned_ms\": 102, \"phase\": \"inhale\", \"round\": 1, \"trace\": [{\"event\": \"start\", \"at_ms\": 0, \"planned_ms\": 0}, {\"event\": \"inhale\", \"round\": 1, \"at_ms\": 0, \"planned_ms\": 0}], \"measurement\": {\"first_cue_at\": 13940.300000011921, \"setup_ms\": 263}, \"interruption\": \"browser reload; last checkpoint only\"}",
+      "revision": 3
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "bffa4c3e-cf64-4862-bd66-fef88f71d853",
+      "session_id": "d645bfc2-1dd3-4579-97a3-dc83459c058c",
+      "sequence": 0,
+      "role": "user",
+      "content": "Fictional scenario: What do the four and six counts mean?",
+      "source": "user",
+      "model_id": null,
+      "response_code": null,
+      "created_at": "2026-10-22T17:25:07.650715+00:00"
+    }
+  ],
+  "message_attempts": [
+    {
+      "user_message_id": "bffa4c3e-cf64-4862-bd66-fef88f71d853",
+      "status": "failed",
+      "error_status": 503,
+      "response_id": null,
+      "suggested_skill_id": null
+    }
+  ]
+}

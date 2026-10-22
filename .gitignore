@@ -5,6 +5,8 @@ __pycache__/
 *.py[cod]
 .DS_Store
 data/*.db
+assignment-3/data/*.db*
+assignment-3/data/*.sqlite*
 .env
 .env.*
 !.env.example

@@ -1,0 +1,11 @@
+{
+  "name": "a-little-space",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ../../frontend/node_modules/vite/bin/vite.js --config vite.config.js",
+    "build": "node ../../frontend/node_modules/vite/bin/vite.js build --config vite.config.js",
+    "test": "node --test src/composables/*.test.js",
+    "preview": "node ../../frontend/node_modules/vite/bin/vite.js preview --config vite.config.js"
+  }
+}

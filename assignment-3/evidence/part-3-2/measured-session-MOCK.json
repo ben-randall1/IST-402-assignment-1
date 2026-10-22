@@ -1,0 +1,148 @@
+{
+  "evidence_kind": "MOCK model, actual browser timer and SQLite persistence; fictional text only",
+  "observed_date": "2026-10-22",
+  "session": {
+    "session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+    "skill_id": "breathing-4-6",
+    "skill_version": 1,
+    "started_at": "2026-10-22T17:19:59.066513+00:00",
+    "ended_at": "2026-10-22T17:21:12.461110+00:00",
+    "status": "completed",
+    "active_ms": 60004,
+    "paused_ms": 0,
+    "replay_ms": 0,
+    "revision": 16,
+    "progress": {
+      "planned_ms": 60000,
+      "phase": "exhale",
+      "round": 6,
+      "trace": [
+        {
+          "event": "start",
+          "at_ms": 0,
+          "planned_ms": 0
+        },
+        {
+          "event": "inhale",
+          "round": 1,
+          "at_ms": 0.09999996423721313,
+          "planned_ms": 0.09999996423721313
+        },
+        {
+          "event": "exhale",
+          "round": 1,
+          "at_ms": 4003.2999999523163,
+          "planned_ms": 4003.2999999523163
+        },
+        {
+          "event": "inhale",
+          "round": 2,
+          "at_ms": 10003.399999976158,
+          "planned_ms": 10003.399999976158
+        },
+        {
+          "event": "exhale",
+          "round": 2,
+          "at_ms": 14003.599999964237,
+          "planned_ms": 14003.599999964237
+        },
+        {
+          "event": "inhale",
+          "round": 3,
+          "at_ms": 20004.299999952316,
+          "planned_ms": 20004.299999952316
+        },
+        {
+          "event": "exhale",
+          "round": 3,
+          "at_ms": 24004.19999998808,
+          "planned_ms": 24004.19999998808
+        },
+        {
+          "event": "inhale",
+          "round": 4,
+          "at_ms": 30003.399999976158,
+          "planned_ms": 30003.399999976158
+        },
+        {
+          "event": "exhale",
+          "round": 4,
+          "at_ms": 34004.89999997616,
+          "planned_ms": 34004.89999997616
+        },
+        {
+          "event": "inhale",
+          "round": 5,
+          "at_ms": 40003.799999952316,
+          "planned_ms": 40003.799999952316
+        },
+        {
+          "event": "exhale",
+          "round": 5,
+          "at_ms": 44004.5,
+          "planned_ms": 44004.5
+        },
+        {
+          "event": "inhale",
+          "round": 6,
+          "at_ms": 50004.39999997616,
+          "planned_ms": 50004.39999997616
+        },
+        {
+          "event": "exhale",
+          "round": 6,
+          "at_ms": 54005.09999996424,
+          "planned_ms": 54005.09999996424
+        },
+        {
+          "event": "sequence_ended",
+          "at_ms": 60004.299999952316,
+          "planned_ms": 60000
+        }
+      ],
+      "measurement": {
+        "first_cue_at": 19428.80000001192,
+        "final_step_at": 79431.90000003576,
+        "setup_ms": 13389,
+        "observed_sequence_ms": 60003,
+        "active_ms": 60004,
+        "paused_ms": 0,
+        "replay_ms": 0,
+        "planned_ms": 60000
+      }
+    }
+  },
+  "messages": [
+    {
+      "message_id": "3fd25304-fd95-47fb-9762-263c4c396c22",
+      "session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+      "sequence": 0,
+      "role": "user",
+      "content": "Fictional: what do the counts mean?",
+      "source": "user",
+      "model_id": null,
+      "response_code": null,
+      "created_at": "2026-10-22T17:20:07.946778+00:00"
+    },
+    {
+      "message_id": "2037d405-8564-58e3-94ae-6e1c4470ab49",
+      "session_id": "69fd5411-98be-43fa-b6ed-991ce47e23d3",
+      "sequence": 1,
+      "role": "assistant",
+      "content": "[MOCK RESPONSE] This practice uses four counts in and six counts out, for six rounds. The screen carries the pace. You can stop at any point.",
+      "source": "fallback",
+      "model_id": null,
+      "response_code": "explain_breathing",
+      "created_at": "2026-10-22T17:20:07.947975+00:00"
+    }
+  ],
+  "attempts": [
+    {
+      "user_message_id": "3fd25304-fd95-47fb-9762-263c4c396c22",
+      "status": "succeeded",
+      "error_status": null,
+      "response_id": "explain_breathing",
+      "suggested_skill_id": "breathing-4-6"
+    }
+  ]
+}
