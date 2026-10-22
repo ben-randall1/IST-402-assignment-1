@@ -11,3 +11,6 @@ Live verification is now complete: the student replaced the placeholder with a v
 Final production browser run: 60,005 ms displayed sequence / 60,003 ms active, zero pause/replay, 364 ms choice/setup. Normal API restart and active browser reload confirmed retained history and interrupted 102 ms checkpoint without resume. New/revised markdown links resolve, credential-value scan found no matches in changed files, .env/SQLite ignore rules verified.
 
 Current processes: production preview at 127.0.0.1:5174 and normal API at 127.0.0.1:8001; both use the latest source/build. The disposable fixture server was stopped. Configuration reads ignored root `.env` per request.
+
+
+Public source/evidence checkpoint: `32925c9e66b17f89663ab9e4c058439cb07405c0`; its tree matches the verified local snapshot. Final report metadata links to that immutable checkpoint. Runtime source remains unchanged. Screenshots contain fictional test data only; administrative receipts and credentials are excluded from publication.

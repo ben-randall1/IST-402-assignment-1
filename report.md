@@ -4,18 +4,23 @@
 
 **Project:** A little space · **Milestone date:** October 22, 2026
 
-**Status:** The Part 3.2 implementation and verification are complete locally, including two successful live-model turns, SQLite persistence, actual browser timing, independent crisis access, request failure and leaving. Publication metadata is being finalized before Canvas submission. Part 3.3 evaluation and recordings are not claimed.
+**Status:** The Part 3.2 implementation and verification are complete locally, including two successful live-model turns, SQLite persistence, actual browser timing, independent crisis access, request failure and leaving. The verified source and evidence are published in the public repository at the assessed checkpoint below. Part 3.3 evaluation and recordings are not claimed.
 
 ## Repository and review access
 
-Repository: [ben-randall1/IST-402-assignment-1](https://github.com/ben-randall1/IST-402-assignment-1). The intended branch is `codex/assignment-3-part-2`; the exact published assessed commit and immutable artifact links will be added after publication. The Part 3.1 report is preserved in `assignment-3/report-3.1.md`.
+Repository: [ben-randall1/IST-402-assignment-1](https://github.com/ben-randall1/IST-402-assignment-1). Branch: [codex/assignment-3-part-2](https://github.com/ben-randall1/IST-402-assignment-1/tree/codex/assignment-3-part-2).
 
-Local artifacts ready for review:
+**Assessed published implementation/evidence commit:** [32925c9e66b17f89663ab9e4c058439cb07405c0](https://github.com/ben-randall1/IST-402-assignment-1/commit/32925c9e66b17f89663ab9e4c058439cb07405c0). Its complete file tree matches the verified local snapshot (`62e494a596d1a29e44c8e3abd6bd553d4b3eaa66`). Anonymous verification on October 22 confirmed public repository visibility, the matching branch ref and HTTP 200 for all 14 artifact links below. A follow-up documentation commit adds these exact links; it does not change runtime source or test evidence. Earlier local history is retained privately rather than publishing administrative receipt notes.
 
-- `assignment-3/README.md`: normal and explicit mock startup, configuration, privacy limits and verification commands.
-- `assignment-3/implementation.md`: MVC/data flow, R/D rationale, timing, failures and implementation revisions.
-- `assignment-3/evidence/part-3-2/README.md`: expected versus observed browser/database checks with linked screenshots and actual session exports.
-- `AI-USE.md`: tools/model roles, selected prompt intent, revisions, and limits.
+Accessible artifacts at that immutable checkpoint:
+
+- [Run/configuration/verification README](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/README.md).
+- [Implementation decisions and R/D tradeoffs](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/implementation.md).
+- [Expected-versus-observed evidence index](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/evidence/part-3-2/README.md), with browser screenshots and actual database exports.
+- [Actual live conversation in SQLite](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/evidence/part-3-2/live-sqlite-session.json) and [live history after reload](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/evidence/part-3-2/live-history-after-reload.png).
+- [Measured production exercise](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/evidence/part-3-2/production-measured-session.json) and [completion screen](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/evidence/part-3-2/production-completed.png).
+- [Executed checks](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/evidence/part-3-2/checks.txt), [AI-use disclosure](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/AI-USE.md), and [agent guidance](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/AGENTS.md).
+- [Part 3.1 report](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/report-3.1.md), [design rationale](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/design.md), [storyboard](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/storyboard.svg), and [technical plan](https://github.com/ben-randall1/IST-402-assignment-1/blob/32925c9e66b17f89663ab9e4c058439cb07405c0/assignment-3/technical-design.md) retain the historical design context. Part 3.2 has no required recording; finished-demo/failure-analysis recordings remain Part 3.3 work.
 
 Run from the repository root, in two terminals:
 
@@ -62,4 +67,4 @@ Executed checks: **13 backend tests**, **7 frontend timer/request tests**, and t
 
 Evidence prompted revisions: an example API key was initially mistaken for configured input, so placeholders now fail locally; the initial mobile dialog left Leave below the fold, so Close/Leave moved to a sticky header; simplification initially hid only examples, so it now hides the optional orientation section. A concurrent delayed-model test confirms that starting a session invalidates the pending reply: HTTP 409, stale attempt, and no saved assistant answer.
 
-Publication metadata remains to be filled before this report is uploaded. For Part 3.3: the full 15-scenario/three-behavior-check evaluation, limited live variation, broader accessibility review, clean-checkout verification and demonstration/failure-analysis recordings. Only paced breathing is enabled. No clinical, universal timing, multi-user privacy or deployment suitability claim is made. See `AI-USE.md` and the curated evidence index for coding-agent/application-model distinctions and the redacted development record.
+Remaining for Part 3.3: the full 15-scenario/three-behavior-check evaluation, limited live variation, broader accessibility review, clean-checkout verification and demonstration/failure-analysis recordings. Only paced breathing is enabled. No clinical, universal timing, multi-user privacy or deployment suitability claim is made. See `AI-USE.md` and the curated evidence index for coding-agent/application-model distinctions and the redacted development record.
